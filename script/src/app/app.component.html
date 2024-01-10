@@ -1,0 +1,138 @@
+<!-- navbar -->
+<nav
+  class="flex items-center bg-gray-200 p-2 fixed top-0 z-40 h-20"
+  style="width: 100%"
+>
+  <div style="width: 100%">
+    <div class="flex items-center justify-between gap-2 ml-10 mr-5">
+      <div>
+        <img alt="error" />
+      </div>
+      <div class="flex items-center justify-between gap-5">
+        <div class="cursor-pointer mr-5 hover:underline">
+          <p class="font-bold text-black">Giới thiệu</p>
+        </div>
+        <div class="cursor-pointer mr-5 hover:underline">
+          <p class="font-bold text-black">Liên hệ</p>
+        </div>
+        <div class="flex gap-2">
+          <div
+            class="box-border bg-red-500 p-2 hover:bg-red-400 rounded-sm w-28 text-center"
+          >
+            <button class="font-semibold text-white">ĐĂNG KÍ</button>
+          </div>
+          <div
+            class="box-border bg-blue-500 p-2 hover:bg-blue-400 rounded-sm w-28 text-center"
+          >
+            <button class="font-semibold text-white">ĐĂNG NHẬP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div
+  (click)="display()"
+  class="bg-blue-300 h-14 w-14 p-2 rounded-full z-50 fixed cursor-pointer"
+  style="top: 90%; right: 2%"
+>
+  <img src="../assets/images/customer-service.png" style="color: white" />
+</div>
+
+<!-- chat popup -->
+<div
+  [ngStyle]="{ display: isChatVisible ? 'block' : 'none' }"
+  class="z-50 fixed h-96 w-80 bg-white rounded-md shadow-2xl"
+  style="bottom: 0; right: 7%"
+>
+  <div>
+    <div class="shadow-sm p-2 flex items-center justify-end">
+      <span
+        (click)="close()"
+        nz-icon
+        nzType="close"
+        nzTheme="outline"
+        class="cursor-pointer hover:bg-gray-300 rounded-full"
+        style="color: blue; font-size: large"
+      ></span>
+    </div>
+    <div>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+    </div>
+    <div
+      class="flex items-center justify-center absolute bottom-4 gap-1 mx-1"
+      style="width: 100%"
+    >
+      <input
+        class="outline-none bg-gray-200 p-1 rounded-md"
+        placeholder="Aa"
+        style="width: 100%; flex-basis: 95%"
+      />
+      <span
+        class="cursor-pointer"
+        nz-icon
+        nzType="send"
+        nzTheme="outline"
+        style="flex-basis: 15%"
+      ></span>
+    </div>
+  </div>
+</div>
+
+<router-outlet class="relative"></router-outlet>
+
+<!-- footer -->
+<footer>
+  <div
+    class="py-16 flex justify-center gap-3"
+    style="background-color: #1e2b41"
+  >
+    <div style="flex-basis: 30%" class="flex justify-center">
+      <img alt="logo..." />
+    </div>
+    <div style="flex-basis: 17.5%" class="flex flex-col text-white">
+      <p class="font-bold text-xl">Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+    </div>
+    <div style="flex-basis: 17.5%" class="flex flex-col text-white">
+      <p class="font-bold text-xl">Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+    </div>
+    <div style="flex-basis: 17.5%" class="flex flex-col text-white">
+      <p class="font-bold text-xl">Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+    </div>
+    <div style="flex-basis: 17.5%" class="flex flex-col text-white">
+      <p class="font-bold text-xl">Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+      <p>Company</p>
+    </div>
+  </div>
+  <div class="py-2" style="background-color: #132036">
+    <p class="text-center text-white">
+      Copyright © 2020 . All Rights Reserved.
+    </p>
+  </div>
+</footer>
