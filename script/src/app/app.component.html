@@ -5,7 +5,7 @@
 >
   <div style="width: 100%">
     <div class="flex items-center justify-between gap-2 ml-10 mr-5">
-      <div>
+      <div routerLink="/" class="cursor-pointer">
         <img alt="error" />
       </div>
       <div class="flex items-center justify-between gap-5">
@@ -19,12 +19,12 @@
           <div
             class="box-border bg-red-500 p-2 hover:bg-red-400 rounded-sm w-28 text-center"
           >
-            <button class="font-semibold text-white">ĐĂNG KÍ</button>
+            <button class="font-semibold text-white" routerLink="/signup">ĐĂNG KÍ</button>
           </div>
           <div
             class="box-border bg-blue-500 p-2 hover:bg-blue-400 rounded-sm w-28 text-center"
           >
-            <button class="font-semibold text-white">ĐĂNG NHẬP</button>
+            <button class="font-semibold text-white" routerLink="login">ĐĂNG NHẬP</button>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
   style="bottom: 0; right: 7%"
 >
   <div>
-    <div class="shadow-sm p-2 flex items-center justify-end">
+    <div class="shadow-sm p-2 flex items-center justify-end bg-gray-200">
       <span
         (click)="close()"
         nz-icon
@@ -57,13 +57,34 @@
         style="color: blue; font-size: large"
       ></span>
     </div>
-    <div>
+    <div style="overflow-y: scroll; height: 300px; white-space: nowrap;">
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
       <p>Content one</p>
       <p>Content two</p>
       <p>Content three</p>
     </div>
     <div
-      class="flex items-center justify-center absolute bottom-4 gap-1 mx-1"
+      class="flex items-center justify-center absolute bottom-4 gap-1 mx-1 z-50"
       style="width: 100%"
     >
       <input
@@ -82,7 +103,7 @@
   </div>
 </div>
 
-<router-outlet class="relative"></router-outlet>
+<router-outlet></router-outlet>
 
 <!-- footer -->
 <footer>
