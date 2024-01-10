@@ -10,17 +10,18 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { RouterModule } from '@angular/router';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { LoginComponent } from './components/login/login.component';
+import { SiteNgZorroAntdModule } from './DemoNgZorroAndModule';
+import { SignupComponent } from './components/signup/signup.component';
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, SignupComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -28,8 +29,8 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NzIconModule,
-    NzModalModule
+    ReactiveFormsModule,
+    SiteNgZorroAntdModule
   ],
   providers: [provideClientHydration(), { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
