@@ -42,14 +42,13 @@ public class Account implements UserDetails {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "role_id", referencedColumnName = "id")
 	private Role role;
-
+	@OneToOne(mappedBy = "account")
+	private Profile profile;
 	public Account() {
 
 	}
 
-	public Account(int id, String username, String email, String password, boolean enabled, boolean verify,
-			String otpCode, Date timeOtpCreated, Role role) {
-		super();
+	public Account(int id, String username, String email, String password, boolean enabled, boolean verify, String otpCode, Date timeOtpCreated, Role role, Profile profile) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -59,14 +58,7 @@ public class Account implements UserDetails {
 		this.otpCode = otpCode;
 		this.timeOtpCreated = timeOtpCreated;
 		this.role = role;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
+		this.profile = profile;
 	}
 
 	public int getId() {
@@ -77,6 +69,7 @@ public class Account implements UserDetails {
 		this.id = id;
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -93,6 +86,7 @@ public class Account implements UserDetails {
 		this.email = email;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -127,6 +121,22 @@ public class Account implements UserDetails {
 
 	public void setTimeOtpCreated(Date timeOtpCreated) {
 		this.timeOtpCreated = timeOtpCreated;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 	@Override
