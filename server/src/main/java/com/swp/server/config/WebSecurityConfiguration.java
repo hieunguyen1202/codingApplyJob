@@ -19,6 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.swp.server.enums.AccountRole;
 import com.swp.server.services.jwt.UserService;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +31,7 @@ public class WebSecurityConfiguration {
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	private static final String[] PUBLIC_URL = { "/api/v1/auth/**", "/v3/api-docs/**", "/v3/api-docs.yaml",
-			"/swagger-ui/**", "/swagger-ui.html", "/chat", "/product", "/product/**", "/api/chatbox/**" };
+			"/swagger-ui/**", "/swagger-ui.html", "/chat", "/product", "/product/**", "/api/chatbox/**","/api/auth/createprofile" };
 
 	@Autowired
 	private UserService userService;
@@ -62,6 +64,11 @@ public class WebSecurityConfiguration {
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 		return configuration.getAuthenticationManager();
+	}
+
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
 	}
 
 }
