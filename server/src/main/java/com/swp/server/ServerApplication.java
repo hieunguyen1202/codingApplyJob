@@ -11,7 +11,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
 @SpringBootApplication
-
+@OpenAPIDefinition(info = @Info(title = "Library APIS", version = "3.0", description = "Librayry Management Apis."))
+@SecurityScheme(name = "Authorization", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 public class ServerApplication {
 
 	public static void main(String[] args) {
