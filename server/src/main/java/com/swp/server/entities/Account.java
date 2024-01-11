@@ -37,11 +37,22 @@ public class Account implements UserDetails {
 
 	private String otpCode;
 
+<<<<<<< HEAD
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "role_id", referencedColumnName = "id")
+	private Role role;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id", referencedColumnName = "id")
+	private Profile profile;
+	private Date timeOtpCreated;
+
+=======
 	private Date timeOtpCreated;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "role_id", referencedColumnName = "id")
 	private Role role;
+>>>>>>> 6dc98ec008c4b3caacf166a0d73b44446789c07f
 
 	public Account() {
 

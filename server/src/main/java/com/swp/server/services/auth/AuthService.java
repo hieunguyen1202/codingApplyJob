@@ -21,5 +21,8 @@ public interface AuthService {
 	public ResponseEntity<?> sendOtpCodeToUser(ReceiverOtpCode receiverOtpCode);
 
 	public ResponseEntity<?> verifyAccount(OTPCodeAndEmailDTO codeAndEmailDTO);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6dc98ec008c4b3caacf166a0d73b44446789c07f
 }
