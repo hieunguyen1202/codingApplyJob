@@ -1,9 +1,14 @@
 package com.swp.server.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -17,8 +22,8 @@ public class Role {
 
 	private String name;
 
-	@OneToOne(mappedBy = "role")
-	private Account account;
+	@OneToMany(mappedBy = "role") // Fix: Reference the 'role' field in the Account entity
+	private List<Account> accounts = new ArrayList<>();
 
 	public Role() {
 		// TODO Auto-generated constructor stub
@@ -30,19 +35,19 @@ public class Role {
 		this.name = name;
 	}
 
-	public Role(String name, Account account) {
+	public Role(int id, String name, List<Account> accounts) {
 		super();
-
+		this.id = id;
 		this.name = name;
-		this.account = account;
+		this.accounts = accounts;
 	}
 
-	public Account getAccount() {
-		return account;
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public List<Account> getAccounts() {
+		return accounts;
 	}
 
 	public int getId() {

@@ -75,10 +75,12 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public ResponseEntity<?> createAccount(SignUpDTO signUpDTO) {
 
+		System.out.println(signUpDTO.getEmail() + " " + signUpDTO.getPassword() + " " + signUpDTO.getUsername());
+
 		try {
 
 			CheckMailDTO response = restTemplate.getForObject(
-					"https://emailverification.whoisxmlapi.com/api/v3?apiKey=at_7GFRvMURmX39VzkJkrPlMOai69aOX&emailAddress="
+					"https://emailverification.whoisxmlapi.com/api/v3?apiKey=at_0zMmtXUBqay9tGNm2CoB48buQ7jzh&emailAddress=support%40whoisxmlapi.com&fbclid=IwAR1oJqrc2-dhZNQbyvz4LKbG7c1jsORsG5pVLngWExKyKpc4J5A0PV6q050&emailAddress="
 							+ signUpDTO.getEmail(),
 					CheckMailDTO.class);
 
@@ -127,7 +129,7 @@ public class AuthServiceImpl implements AuthService {
 
 				Map<String, String> success = new HashMap<String, String>();
 				success.put("success", "Sign up successfully !!!");
-				return new ResponseEntity<>(success, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(success, HttpStatus.OK);
 			} else {
 				Map<String, String> error = new HashMap<String, String>();
 				error.put("error", "Email is not exist !!!");
