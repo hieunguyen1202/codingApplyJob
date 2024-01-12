@@ -46,10 +46,16 @@ public class ProfileController {
     @Autowired
     ProfileService profileService;
 
-    @PostMapping("/createprofile")
+    @PutMapping("/createprofile")
     public ResponseEntity<?> createProfile(@ModelAttribute ProfileDTO profileDTO){
         return profileService.createProfile(profileDTO);
     }
+    //view profile
+    @GetMapping("/profile")
+    public ResponseEntity<?> viewProfile(@ModelAttribute ProfileDTO profileDTO){
+        return profileService.viewProfile(profileDTO);
+    }
+
 
     //dowload cv
     @GetMapping("/downloadFile/{accountId}")
