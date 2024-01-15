@@ -1,0 +1,39 @@
+<nav
+  class="flex items-center p-2 fixed top-0 z-40 h-20"
+  [style.width]="'100%'"
+  [style.backgroundColor]="backgroundColorNavbar"
+  style="transition: 0.5s ease-in-out;"
+  [style.boxShadow]="boxShadowBottom"
+>
+  <div style="width: 100%">
+    <div class="flex items-center justify-between gap-2 ml-10 mr-5">
+      <div routerLink="/" class="cursor-pointer">
+        <img alt="error" />
+      </div>
+      <div class="flex items-center justify-between gap-5">
+        <div class="cursor-pointer mr-5 hover:underline">
+          <p class="font-bold" [style.color]="textColor" style="transition: 0.5s ease-in-out;">Giới thiệu</p>
+        </div>
+        <div class="cursor-pointer mr-5 hover:underline">
+          <p class="font-bold text-black" [style.color]="textColor" style="transition: 0.5s ease-in-out;">Liên hệ</p>
+        </div>
+        <div class="flex gap-2">
+          <div
+            class="box-border bg-red-500 p-2 hover:bg-red-400 rounded-sm w-28 text-center"
+          >
+            <button class="font-semibold text-white" routerLink="/signup">
+              ĐĂNG KÍ
+            </button>
+          </div>
+          <div
+            class="box-border bg-blue-500 p-2 hover:bg-blue-400 rounded-sm w-28 text-center"
+          >
+            <button class="font-semibold text-white" routerLink="/login">
+              ĐĂNG NHẬP
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
