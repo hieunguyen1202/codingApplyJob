@@ -18,19 +18,25 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SiteNgZorroAntdModule } from './DemoNgZorroAndModule';
 import { SignupComponent } from './components/signup/signup.component';
-import { ButtonModule } from 'primeng/button'
+import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
-import { ProductService } from './services/product.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 //module prime
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, SignupComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    SignupComponent,
+    NavbarComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule,
@@ -44,8 +50,9 @@ registerLocaleData(en);
     CalendarModule,
     CarouselModule,
     TagModule,
+    SlickCarouselModule
   ],
-  providers: [provideClientHydration(), { provide: NZ_I18N, useValue: en_US },ProductService],
+  providers: [provideClientHydration(), { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
