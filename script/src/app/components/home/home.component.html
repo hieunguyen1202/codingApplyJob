@@ -7,7 +7,7 @@
   <div
     class="relative"
     style="
-      height: 550px;
+      height: 100vh;
       background-image: url('assets/images/banner.jpg');
       background-size: cover;
       background-position: center;
@@ -66,61 +66,31 @@
   </div>
 
   <!-- branch -->
-  <div
-    data-aos="fade-up"
-    data-aos-duration="1000"
-    *ngIf="products$ | async as products"
-  >
-    <p-carousel
-      [value]="products"
-      [numVisible]="4"
-      [numScroll]="4"
-      [circular]="true"
-      [responsiveOptions]="responsiveOptions"
-      [showIndicators]="false"
-      [autoplayInterval]="3000"
-    >
-      <ng-template let-product pTemplate="item">
-        <div class="m-2 text-center py-5 px-3">
-          <div class="mb-3">
-            <img
-              src="https://primefaces.org/cdn/primeng/images/demo/product/{{
-                product.image
-              }}"
-              [alt]="product.name"
-              class="w-full"
-            />
-          </div>
-          <div>
-            <h4 class="mb-1">{{ product.name }}</h4>
-            <h6 class="mt-0 mb-3">{{ "$" + product.price }}</h6>
-            <p-tag
-              [value]="product.inventoryStatus"
-              [severity]="getSeverity(product.inventoryStatus)"
-            ></p-tag>
-            <div
-              class="mt-5 flex align-items-center justify-content-center gap-2"
-            >
-              <p-button icon="pi pi-search" [rounded]="true"></p-button>
-              <p-button
-                icon="pi pi-star-fill"
-                [rounded]="true"
-                severity="secondary"
-              ></p-button>
-            </div>
+
+  <div class="p-10">
+    <div class="my-5 text-center font-bold text-3xl">
+      <h1>Các chi nhánh</h1>
+    </div>
+    <ngx-slick-carousel class="carousel" [config]="slideConfig">
+      <ng-container *ngFor="let slide of slides">
+        <div ngxSlickItem class="slide relative">
+          <img
+            src="https://picsum.photos/200/300"
+            alt=""
+            class="w-full p-5 h-96 cursor-pointer"
+          />
+          <div
+            class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center w-full"
+          >
+            <h1 ><span class="text-white font-bold p-2 bg-black rounded-lg cursor-pointer hover:bg-gray-800">Hà Nội</span></h1>
           </div>
         </div>
-      </ng-template>
-    </p-carousel>
+      </ng-container>
+    </ngx-slick-carousel>
   </div>
 
   <!-- list of jobs -->
-  <div
-    data-aos="fade-up"
-    data-aos-duration="1000"
-    class="bg-gray-100 pb-10"
-    #listJob
-  >
+  <div class="bg-gray-100 pb-10" #listJob>
     <div class="mt-5">
       <div>
         <h1 class="text-center font-bold pt-10 text-3xl pb-5">
@@ -129,16 +99,13 @@
       </div>
     </div>
     <div class="mt-10 flex flex-wrap justify-center gap-5">
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -146,16 +113,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -163,16 +127,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -180,16 +141,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -197,16 +155,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -214,16 +169,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -231,16 +183,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
@@ -248,16 +197,13 @@
           </div>
         </div>
       </div>
-      <div data-aos="fade-up" data-aos-duration="1000" style="flex-basis: 22%">
-        <div
-          class="flex items-center justify-evenly gap-3 bg-white p-2 rounded-md"
-        >
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
           <div>
             <img
               class="rounded-md"
-              src="../../../assets/images/banner.jpg"
-              style="height: 100px; object-fit: cover"
-              width="100%"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
             />
           </div>
           <div>
