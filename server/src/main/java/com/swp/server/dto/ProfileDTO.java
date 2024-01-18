@@ -97,4 +97,6 @@ public class ProfileDTO {
     public void setAvatar(MultipartFile avatar) {
         this.avatar = avatar;
     }
+
+
 }

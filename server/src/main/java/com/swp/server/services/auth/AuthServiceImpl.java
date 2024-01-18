@@ -139,7 +139,7 @@ public class AuthServiceImpl implements AuthService {
 		} catch (Exception e) {
 			Map<String, Object> error = new HashMap<>();
 			error.put("error", "INTERNAL SERVER ERROR !!!");
-			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(error, HttpStatus.ACCEPTED);
 		}
 
 	}

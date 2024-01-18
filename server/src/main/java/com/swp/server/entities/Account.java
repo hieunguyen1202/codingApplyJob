@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,6 +49,8 @@ public class Account implements UserDetails {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
+	@OneToOne(mappedBy = "account")
+	private Profile profile;
 	public Account() {
 
 	}
@@ -63,6 +66,14 @@ public class Account implements UserDetails {
 		this.verify = verify;
 		this.otpCode = otpCode;
 		this.timeOtpCreated = timeOtpCreated;
+		this.role = role;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -132,6 +143,14 @@ public class Account implements UserDetails {
 
 	public void setTimeOtpCreated(Date timeOtpCreated) {
 		this.timeOtpCreated = timeOtpCreated;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 	@Override

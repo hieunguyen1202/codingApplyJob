@@ -5,4 +5,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProfileService {
     public ResponseEntity<?> createProfile(ProfileDTO profileDTO);
+
+    public ResponseEntity<?> viewProfile(ProfileDTO profileDTO);
 }
