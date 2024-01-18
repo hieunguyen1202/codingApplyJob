@@ -103,14 +103,17 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ResponseEntity<?> viewProfile(ProfileDTO profileDTO) {
+
         Optional<Account> findAccountByEmail = accountRepo.findFirstByEmail(profileDTO.getEmail());
-        if (findAccountByEmail.isEmpty()) {
+        Account account = findAccountByEmail.get();
+        Optional<Profile> findId = profileRepo.findFirstByAccount_id(account.getId());
+
+
+        if (findId.isEmpty()) {
             Map<String, String> error = new HashMap<>();
             error.put("error", "Account not found!");
             return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
-
-        Account account = findAccountByEmail.get();
         Profile profileEntity = account.getProfile();
 
         if (profileEntity == null) {

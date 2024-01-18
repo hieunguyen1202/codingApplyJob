@@ -1,21 +1,14 @@
+
 package com.swp.server.entities;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Account")
@@ -39,9 +32,12 @@ public class Account implements UserDetails {
 
 	private Date timeOtpCreated;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "role_id", referencedColumnName = "id")
+
+
+	@ManyToOne
+	@JoinColumn(name = "role_id")
 	private Role role;
+
 	@OneToOne(mappedBy = "account")
 	private Profile profile;
 	public Account() {
@@ -61,6 +57,14 @@ public class Account implements UserDetails {
 		this.profile = profile;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -69,7 +73,6 @@ public class Account implements UserDetails {
 		this.id = id;
 	}
 
-	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -86,7 +89,6 @@ public class Account implements UserDetails {
 		this.email = email;
 	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -121,14 +123,6 @@ public class Account implements UserDetails {
 
 	public void setTimeOtpCreated(Date timeOtpCreated) {
 		this.timeOtpCreated = timeOtpCreated;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public Profile getProfile() {
