@@ -10,6 +10,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "Account")
 public class Account implements UserDetails {
@@ -44,7 +55,9 @@ public class Account implements UserDetails {
 
 	}
 
-	public Account(int id, String username, String email, String password, boolean enabled, boolean verify, String otpCode, Date timeOtpCreated, Role role, Profile profile) {
+	public Account(int id, String username, String email, String password, boolean enabled, boolean verify,
+			String otpCode, Date timeOtpCreated, Role role) {
+		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -54,7 +67,14 @@ public class Account implements UserDetails {
 		this.otpCode = otpCode;
 		this.timeOtpCreated = timeOtpCreated;
 		this.role = role;
-		this.profile = profile;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Role getRole() {
