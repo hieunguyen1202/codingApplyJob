@@ -18,10 +18,11 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SiteNgZorroAntdModule } from './DemoNgZorroAndModule';
 import { SignupComponent } from './components/signup/signup.component';
+import { ProfileComponent } from './components/profile/profile.component';
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, SignupComponent, ProfileComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -35,4 +36,4 @@ registerLocaleData(en);
   providers: [provideClientHydration(), { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
