@@ -1,8 +1,13 @@
-<div class="mt-20" style="width: 100%">
+<app-navbar
+  [backgroundColorNavbar]="backgroundColorNavbar"
+  [textColor]="textColor"
+  [boxShadowBottom]="boxShadowBottom"
+></app-navbar>
+<div style="width: 100%">
   <div
     class="relative"
     style="
-      height: 550px;
+      height: 100vh;
       background-image: url('assets/images/banner.jpg');
       background-size: cover;
       background-position: center;
@@ -59,401 +64,169 @@
       </div>
     </div>
   </div>
- 
 
-    <!-- branch -->
-    <div class="mx-20">
-      <div class="mt-10">
-        <h1 class="font-bold text-3xl">Các chi nhánh trên toàn quốc</h1>
+  <!-- branch -->
+
+  <div class="p-10">
+    <div class="my-5 text-center font-bold text-3xl">
+      <h1>Các chi nhánh</h1>
+    </div>
+    <ngx-slick-carousel class="carousel" [config]="slideConfig">
+      <ng-container *ngFor="let slide of slides">
+        <div ngxSlickItem class="slide relative">
+          <img
+            src="https://picsum.photos/200/300"
+            alt=""
+            class="w-full p-5 h-96 cursor-pointer"
+          />
+          <div
+            class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center w-full"
+          >
+            <h1 ><span class="text-white font-bold p-2 bg-black rounded-lg cursor-pointer hover:bg-gray-800">Hà Nội</span></h1>
+          </div>
+        </div>
+      </ng-container>
+    </ngx-slick-carousel>
+  </div>
+
+  <!-- list of jobs -->
+  <div class="bg-gray-100 pb-10" #listJob>
+    <div class="mt-5">
+      <div>
+        <h1 class="text-center font-bold pt-10 text-3xl pb-5">
+          Các chuyên ngành hot
+        </h1>
       </div>
-      <div class="mt-10">
-        <div
-          id="carouselExampleControls"
-          class="carousel slide"
-          data-bs-ride="carousel"
+    </div>
+    <div class="mt-10 flex flex-wrap justify-center gap-5">
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+      <div style="flex-basis: 22%">
+        <div class="flex items-center justify-around py-6 bg-white rounded-md">
+          <div>
+            <img
+              class="rounded-md"
+              src="https://picsum.photos/200/300"
+              class="w-32 h-32"
+            />
+          </div>
+          <div>
+            <h1 class="font-bold">Business Analysis</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-20 mb-16 flex items-center justify-center gap-5">
+      <div>
+        <button
+          class="bg-blue-500 hover:bg-blue-300 p-2 text-white font-semibold rounded-md w-24"
         >
-          <div class="carousel-inner">
-            <!-- 1 -->
-            <div class="carousel-item active">
-              <div class="flex items-center justify-center gap-10">
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-              </div>
-            </div>
-  
-            <!-- 2 -->
-            <div class="carousel-item">
-              <div class="flex items-center justify-center gap-10">
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-              </div>
-            </div>
-  
-            <!-- 3 -->
-            <div class="carousel-item">
-              <div class="flex items-center justify-center gap-10">
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-  
-                <div
-                  class="card hover:opacity-80 cursor-pointer"
-                  style="width: 18rem"
-                >
-                  <img
-                    src="../../../assets/images/banner.jpg"
-                    class="card-img-top relative"
-                    alt="..."
-                    style="height: 350px"
-                  />
-                  <h1
-                    class="absolute text-white font-bold text-4xl"
-                    style="top: 80%; left: 50%; transform: translateX(-50%)"
-                  >
-                    Hà Nội
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev"
-          >
-            <span
-              class="carousel-control-prev-icon bg-gray-400 rounded-full"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleControls"
-            data-bs-slide="next"
-          >
-            <span
-              class="carousel-control-next-icon bg-gray-400 rounded-full"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+          Xem thêm
+        </button>
+      </div>
+      <div>
+        <button
+          class="bg-red-500 hover:bg-red-300 p-2 text-white font-semibold rounded-md w-24"
+        >
+          Ẩn bớt
+        </button>
       </div>
     </div>
-  
-    <!-- list of jobs -->
-    <div class="bg-gray-100 pb-10">
-      <div class="mt-5">
-        <div>
-          <h1 class="text-center font-bold pt-10 text-3xl pb-5">
-            Các chuyên ngành hot
-          </h1>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-center gap-5">
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-  
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-  
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-  
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-        <div style="flex-basis: 22%">
-          <div
-            class="flex items-center justify-evenly gap-3 bg-white p-4 rounded-md"
-          >
-            <div>
-              <img
-                class="rounded-md"
-                src="../../../assets/images/banner.jpg"
-                style="height: 50px; width: 50px"
-              />
-            </div>
-            <div>
-              <h1 class="font-bold">Business Analysis</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-5 flex items-center justify-center gap-5">
-        <div>
-          <button
-            class="bg-blue-500 hover:bg-blue-300 p-2 text-white font-semibold rounded-md w-24"
-          >
-            Xem thêm
-          </button>
-        </div>
-        <div>
-          <button class="bg-red-500 hover:bg-red-300 p-2 text-white font-semibold rounded-md w-24">
-            Ẩn bớt
-          </button>
-        </div>
-      </div>
-    </div>
-  
+  </div>
 </div>
-
-

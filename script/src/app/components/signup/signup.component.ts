@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -13,7 +13,11 @@ import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+  backgroundColorNavbar: string = '#e2e8f0';
+  textColor: string = 'white';
+  boxShadowBottom: string = 'none';
+
   validateForm: FormGroup<{
     email: FormControl<string>;
     password: FormControl<string>;
@@ -56,7 +60,26 @@ export class SignupComponent {
       password: ['', [Validators.required]],
       checkPassword: ['', [Validators.required, this.confirmationValidator]],
       nickname: ['', [Validators.required]],
-      agree: [false]
+      agree: [false],
     });
+  }
+
+  ngOnInit(): void {
+    this.checkWindowScroll();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event): void {
+    this.checkWindowScroll(); // Check window scroll position
+  }
+
+  private checkWindowScroll(): void {
+    if (typeof window !== 'undefined') {
+      const scrollY = window.scrollY;
+      this.backgroundColorNavbar = scrollY > 0 ? '#e2e8f0' : '#e2e8f0';
+      this.textColor = scrollY > 0 ? 'black' : 'black';
+      this.boxShadowBottom =
+        scrollY > 0 ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none';
+    }
   }
 }
