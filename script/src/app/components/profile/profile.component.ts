@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ProfileComponent {
   showPopup = false;
-
   openPopup() {
     this.showPopup = true;
   }
