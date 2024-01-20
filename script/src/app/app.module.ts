@@ -18,6 +18,13 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SiteNgZorroAntdModule } from './DemoNgZorroAndModule';
 import { SignupComponent } from './components/signup/signup.component';
+<<<<<<< HEAD
+import { ProfileComponent } from './components/profile/profile.component';
+registerLocaleData(en);
+
+@NgModule({
+  declarations: [AppComponent, HomeComponent, LoginComponent, SignupComponent, ProfileComponent],
+=======
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
@@ -37,6 +44,7 @@ registerLocaleData(en);
     SignupComponent,
     NavbarComponent,
   ],
+>>>>>>> 89d0c239331f466ac7b6d0d071f3ddea7550e2cf
   imports: [
     BrowserModule,
     RouterModule,
@@ -55,4 +63,4 @@ registerLocaleData(en);
   providers: [provideClientHydration(), { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
