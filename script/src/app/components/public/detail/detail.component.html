@@ -1,0 +1,158 @@
+<div class="flex-grow mb-10">
+  <app-navbar
+    [backgroundColorNavbar]="backgroundColorNavbar"
+    [textColor]="textColor"
+    [boxShadowBottom]="boxShadowBottom"
+  ></app-navbar>
+
+  <div class="mt-20 w-11/12 mx-auto">
+    <div class="">
+      <h1 class="text-3xl font-bold">Springboot and Angular job</h1>
+      <br />
+      <div class="flex items-center gap-36">
+        <div class="w-1/2">
+          <span class="text-white bg-black p-1 mr-7 rounded-md">Full Time</span>
+          <span class="mr-7"
+            ><i class="fa-regular fa-calendar"></i>&nbsp;Ngày đăng :
+            24/11/2024</span
+          >
+          <span
+            ><i class="fa-regular fa-calendar"></i>&nbsp;Đóng tuyển dụng vào :
+            28/11/2024</span
+          >
+        </div>
+        <div class="w-1/2">
+          <button
+            class="border border-red-500 bg-red-200 p-2 rounded-md mr-2 font-semibold hover:bg-opacity-80"
+          >
+            <p>
+              <i class="fa-solid fa-heart text-red-500"></i>&nbsp;Thêm vào yêu
+              thích
+            </p>
+          </button>
+          <button
+            class="border border-gray-300 p-2 rounded-md font-semibold text-white bg-black hover:bg-opacity-80"
+          >
+            <p>Ứng tuyển</p>
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr class="my-10" />
+
+    <div class="flex">
+      <div class="w-1/2">
+        <p>
+          Job Description • Consults on ERP projects including implementations,
+          upgrades, and/or extension of existing applications. • Provides
+          in-depth knowledge of the Microsoft Dynamics application and evaluates
+          the customer’s business processes against the standard Microsoft
+          Dynamics functionality. • Is responsible for documenting the business
+          requirements which express what actions a solution must take and what
+          outcome is expected. • Is responsible for configuring and customizing
+          the Microsoft Dynamics application to achieve the customer’s business
+          requirements. • Facilitates the customer’s decision-making process and
+          develops the functional design document that will drive the
+          development process (if modifications/customizations are required,
+          either to processes or to the Microsoft Dynamics application.) • Is
+          responsible for conducting acceptance testing and training customer
+          resources to successfully use and maintain the Microsoft Dynamics
+          application. Job Qualifications • Graduated with Business Information
+          Systems, Information Technology, Industrial Management, Accounting –
+          Auditing majors. • 2 years of manufacturing industry and/or consulting
+          experience • Has working knowledge of manufacturing industry best
+          practices. • Has industry experience within complex and discrete
+          manufacturing, including machining, and engineering design. • Has
+          knowledge of production resource scheduling, including fabrication,
+          route, resources, costing groups, labor, operations, formula BOM, work
+          centers, resource consumption, and sub-contracting processes/services.
+          • Has hands-on experience in key Dynamics AX modules • Has expert
+          knowledge on Production & Inventory Modules of AX • Excellent
+          communication, planning, and organization customer relationship skills
+          • Has the ability to communicate in Japanese effectively (N1) • Has
+          the ability to go on frequent business trips to over-sea or northern
+          area. Benefits • “FPT care” health insurance provided by AON and is
+          exclusive for FPT employees. • Annual Summer Vacation: follows
+          company’s policy and starts from May every year • Salary review once a
+          year or on excellent performance • International, dynamic, friendly
+          working environment • Annual leave, working conditions follow Vietnam
+          labor laws. • Other allowances: lunch allowance, working on-site
+          allowance, etc.
+        </p>
+      </div>
+      <div class="w-1/2">
+        <div class="ml-10 border border-gray-300 p-2">
+          <div class="flex items-center gap-2">
+            <div>
+              <i
+                class="fa-solid fa-money-bill-wave text-2xl text-green-700"
+              ></i>
+            </div>
+            <div>
+              <p class="font-semibold text-lg">Tiền lương dự tính</p>
+              <p class="text-gray-500">1.000.000đ tới 3.000.000đ</p>
+            </div>
+          </div>
+        </div>
+        <div class="ml-10 border border-gray-300 mt-5 p-5">
+          <div class="flex gap-5 items-center">
+            <div class="w-fit">
+              <img
+                src="https://picsum.photos/200/300"
+                class="w-36 h-36"
+                alt=""
+              />
+            </div>
+            <div class="basis-10/12">
+              <p class="font-semibold text-2xl w-full">Ha Noi</p>
+              <p class="w-full">
+                Provides in-depth knowledge of the Microsoft Dynamics
+                application and evaluates the customer’s business processes
+                against the standard Microsoft Dynamics functionality.
+              </p>
+              <button
+                class="font-semibold p-2 bg-black text-white hover:bg-opacity-80 mt-5 rounded-md"
+              >
+                Thông tin về chi nhánh
+              </button>
+            </div>
+          </div>
+          <div class="border w-full p-2 mt-5">
+            <p class="text-center text-sm">
+              <i class="fa-solid fa-envelope"></i>&nbsp;{{ email }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="mt-20" />
+
+    <!-- related job -->
+    <div class="p-10">
+      <div class="my-5 text-center font-bold text-xl">
+        <h1>Các công việc liên quan</h1>
+      </div>
+      <ngx-slick-carousel class="carousel" [config]="slideConfig">
+        <ng-container *ngFor="let slide of slides">
+          <div ngxSlickItem class="slide relative">
+            <img
+              src="https://picsum.photos/200/300"
+              alt=""
+              class="w-full p-5 h-96 cursor-pointer"
+            />
+            <div
+              class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center w-full"
+            >
+              <h1>
+                <span
+                  class="text-white font-bold p-2 bg-black rounded-lg cursor-pointer hover:bg-gray-800"
+                  >Hà Nội</span
+                >
+              </h1>
+            </div>
+          </div>
+        </ng-container>
+      </ngx-slick-carousel>
+    </div>
+  </div>
+</div>

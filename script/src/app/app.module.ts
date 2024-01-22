@@ -13,19 +13,23 @@ import en from '@angular/common/locales/en';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/auth/home/home.component';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { SiteNgZorroAntdModule } from './DemoNgZorroAndModule';
-import { SignupComponent } from './components/signup/signup.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { SearchComponent } from './components/public/search/search.component';
 
 //module prime
+import { TooltipModule } from 'primeng/tooltip';
+import { DetailComponent } from './components/public/detail/detail.component';
+import { BranchDetailComponent } from './components/public/branch-detail/branch-detail.component';
 
 registerLocaleData(en);
 
@@ -36,6 +40,9 @@ registerLocaleData(en);
     LoginComponent,
     SignupComponent,
     NavbarComponent,
+    SearchComponent,
+    DetailComponent,
+    BranchDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,8 @@ registerLocaleData(en);
     CalendarModule,
     CarouselModule,
     TagModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    TooltipModule
   ],
   providers: [provideClientHydration(), { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

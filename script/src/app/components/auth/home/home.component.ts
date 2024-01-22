@@ -38,6 +38,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+  //slide
   slides = [
     { img: 'http://placehold.it/350x150/000000' },
     { img: 'http://placehold.it/350x150/111111' },
