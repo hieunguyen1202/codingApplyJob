@@ -7,6 +7,8 @@ import { SearchComponent } from './components/public/search/search.component';
 import { DetailComponent } from './components/public/detail/detail.component';
 import { BranchDetailComponent } from './components/public/branch-detail/branch-detail.component';
 
+import { ProfileComponent } from './components/profile/profile.component';
+
 // const AuthGuard = ():boolean =>{
 //   return true
 // }
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'search',component: SearchComponent },
   { path: 'detail/:jobId',component: DetailComponent },
-  { path: 'branch/:branchId',component: BranchDetailComponent }
+  { path: 'branch/:branchId',component: BranchDetailComponent },
+  { path: 'profile',component: ProfileComponent}
+
 ];
 
 @NgModule({
