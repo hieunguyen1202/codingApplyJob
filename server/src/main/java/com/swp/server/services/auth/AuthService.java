@@ -3,6 +3,7 @@ package com.swp.server.services.auth;
 import org.springframework.http.ResponseEntity;
 
 import com.swp.server.dto.ChangePasswordDTO;
+import com.swp.server.dto.EmailDTO;
 import com.swp.server.dto.LoginDTO;
 import com.swp.server.dto.OTPCodeAndEmailDTO;
 import com.swp.server.dto.ReceiverOtpCode;
@@ -21,5 +22,7 @@ public interface AuthService {
 	public ResponseEntity<?> sendOtpCodeToUser(ReceiverOtpCode receiverOtpCode);
 
 	public ResponseEntity<?> verifyAccount(OTPCodeAndEmailDTO codeAndEmailDTO);
+
+	public ResponseEntity<?> findAccountByEmail(EmailDTO emailDTO);
 
 }

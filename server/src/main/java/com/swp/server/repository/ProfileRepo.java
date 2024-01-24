@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ProfileRepo extends JpaRepository<Profile,Integer> {
-    Optional<Profile> findAllByPhoneNumber(String phoneNumber);
+public interface ProfileRepo extends JpaRepository<Profile, Integer> {
+	Optional<Profile> findAllByPhoneNumber(String phoneNumber);
 
-    Optional<Profile> findOneByAccount_Id(int i);
+	Optional<Profile> findOneByAccount_Id(int i);
 
-    Optional<Profile> findFirstByAccount_id(int i);
+	Optional<Profile> findFirstByAccount_id(int i);
+
 }

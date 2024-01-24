@@ -26,17 +26,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import com.swp.server.dto.AccountDTO;
 import com.swp.server.dto.ChangePasswordDTO;
 import com.swp.server.dto.CheckMailDTO;
+import com.swp.server.dto.EmailDTO;
 import com.swp.server.dto.LoginDTO;
 import com.swp.server.dto.OTPCodeAndEmailDTO;
 import com.swp.server.dto.ReceiverOtpCode;
 import com.swp.server.dto.ResponseLogin;
 import com.swp.server.dto.SignUpDTO;
 import com.swp.server.entities.Account;
+import com.swp.server.entities.Profile;
 import com.swp.server.entities.Role;
 import com.swp.server.enums.AccountRole;
 import com.swp.server.repository.AccountRepo;
+import com.swp.server.repository.ProfileRepo;
 import com.swp.server.repository.RoleRepo;
 import com.swp.server.services.jwt.UserDetailsServiceImpl;
 import com.swp.server.utils.JwtUtil;
@@ -67,6 +72,9 @@ public class AuthServiceImpl implements AuthService {
 
 	@Autowired
 	private RestTemplate restTemplate;
+
+	@Autowired
+	private ProfileRepo profileRepo;
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
@@ -117,6 +125,7 @@ public class AuthServiceImpl implements AuthService {
 					return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 				}
 
+				Profile profile = new Profile();
 				Account newAcountEntity = new Account();
 				newAcountEntity.setUsername(signUpDTO.getUsername());
 				newAcountEntity.setEmail(signUpDTO.getEmail());
@@ -125,7 +134,10 @@ public class AuthServiceImpl implements AuthService {
 				newAcountEntity.setEnabled(true);
 				newAcountEntity.setRole(roleEntity);
 
+				profile.setAccount(newAcountEntity);
+
 				Account newAccount = accountRepo.save(newAcountEntity);
+				Profile newProfile = profileRepo.save(profile);
 
 				Map<String, String> success = new HashMap<String, String>();
 				success.put("success", "Sign up successfully !!!");
@@ -330,6 +342,26 @@ public class AuthServiceImpl implements AuthService {
 		Map<String, Object> error = new HashMap<>();
 		error.put("error", "OTP code is not valid or expire !!!");
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
+	@Override
+	public ResponseEntity<?> findAccountByEmail(EmailDTO emailDTO) {
+
+		Optional<Account> account = accountRepo.findFirstByEmail(emailDTO.getEmail());
+		if (account.isPresent()) {
+			AccountDTO accountDTO = new AccountDTO();
+			accountDTO.setId(account.get().getId());
+			accountDTO.setVerified(account.get().isVerify());
+			Map<String, Object> success = new HashMap<>();
+			success.put("success", "Get account successfully !!!");
+			success.put("metadata", accountDTO);
+			return ResponseEntity.ok(success);
+
+		}
+		Map<String, Object> error = new HashMap<>();
+		error.put("error", "Not found account !!!");
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+
 	}
 
 }

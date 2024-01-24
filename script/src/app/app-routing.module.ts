@@ -8,6 +8,7 @@ import { DetailComponent } from './components/public/detail/detail.component';
 import { BranchDetailComponent } from './components/public/branch-detail/branch-detail.component';
 
 import { ProfileComponent } from './components/profile/profile.component';
+import { VerifyAccountComponent } from './components/auth/verify-account/verify-account.component';
 
 // const AuthGuard = ():boolean =>{
 //   return true
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path: 'search',component: SearchComponent },
   { path: 'detail/:jobId',component: DetailComponent },
   { path: 'branch/:branchId',component: BranchDetailComponent },
-  { path: 'profile',component: ProfileComponent}
+  { path: 'profile',component: ProfileComponent},
+  { path: 'verifyAccount',component: VerifyAccountComponent}
+
 
 ];
 

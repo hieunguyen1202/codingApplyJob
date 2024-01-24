@@ -7,9 +7,7 @@ import { Component } from '@angular/core';
 })
 export class DetailComponent {
   email : string = "thai@gmail.com";
-  backgroundColorNavbar: string = '#e2e8f0';
-  textColor: string = 'black';
-  boxShadowBottom: string = 'none';
+ 
   responsiveOptions: any[] | undefined;
 
   //slide 

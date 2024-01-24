@@ -27,7 +27,7 @@ public class Profile {
 
     public Profile() {
     }
-
+	
     public Profile(int id, Account account, String firstName, String lastName, boolean gender, String address, String phoneNumber, byte[] CV, byte[] avatar) {
         this.id = id;
         this.account = account;
@@ -36,7 +36,7 @@ public class Profile {
         this.gender = gender;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.CV = CV;
+        this.CV = CV;	
         this.avatar = avatar;
     }
 

@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './branch-detail.component.scss',
 })
 export class BranchDetailComponent {
-  backgroundColorNavbar: string = '#e2e8f0';
-  textColor: string = 'black';
-  boxShadowBottom: string = 'none';
+  email:string = "tdsfg@gmail.com"
+
 }
