@@ -8,15 +8,31 @@ import {
   Validators,
 } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
+import { PublicService } from '../../../services/public/public.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { error } from 'console';
+import { SignUp } from '../../../models/signup.model';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
 export class SignupComponent implements OnInit {
-  backgroundColorNavbar: string = '#e2e8f0';
-  textColor: string = 'white';
-  boxShadowBottom: string = 'none';
+
+  isSpinning : boolean = false
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private publicService: PublicService,
+    private msg: NzMessageService
+  ) {
+    this.validateForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.required]],
+      checkPassword: ['', [Validators.required, this.confirmationValidator]],
+      nickname: ['', [Validators.required]],
+      agree: [false],
+    });
+  }
 
   validateForm: FormGroup<{
     email: FormControl<string>;
@@ -31,9 +47,58 @@ export class SignupComponent implements OnInit {
   };
 
   submitForm(): void {
+    this.isSpinning = true
     console.log('====================================');
-    console.log(this.validateForm.value);
+    console.log('FormSubmit::', this.validateForm);
     console.log('====================================');
+
+    const username = this.validateForm.controls.nickname.valid;
+    const email = this.validateForm.controls.email.valid;
+    const password = this.validateForm.controls.password.valid;
+    const agree = this.validateForm.controls.agree.value;
+    const checkPassword = this.validateForm.controls.checkPassword.valid;
+
+    if (!username || this.validateForm.controls.nickname.value.trim() === '') {
+      this.isSpinning = false
+      this.msg.error('Vui lòng không bỏ trống username');
+    } else if (!email) {
+      this.isSpinning = false
+      this.msg.error('Vui lòng nhập đúng email');
+    } else if (
+      !password ||
+      this.validateForm.controls.password.value.trim() === ''
+    ) {
+      this.isSpinning = false
+      this.msg.error('Vui lòng không bỏ trống mật khẩu');
+    } else if (!checkPassword) {
+      this.isSpinning = false
+      this.msg.error('Vui lòng nhập confirm passwod đúng mật khẩu bạn nhập');
+    } else if (agree === false) {
+      this.isSpinning = false
+      this.msg.error('Vui lòng chấp nhận điều khoản công ty của chúng tôi');
+    } else {
+      const signupData: SignUp = {
+        username: this.validateForm.controls.nickname.value,
+        email: this.validateForm.controls.email.value,
+        password: this.validateForm.controls.password.value,
+      };
+
+      this.publicService.signup(signupData).subscribe(
+        (res) => {
+          this.msg.success('Đăng kí thành công', { nzDuration: 2000 });
+          this.validateForm.reset();
+          this.isSpinning = false
+        },
+        (error) => {
+          if (error?.error?.error) {
+            this.msg.error(error?.error?.error, { nzDuration: 2000 });
+          } else {
+            this.msg.error('Đăng nhập không thành công', { nzDuration: 2000 });
+          }
+          this.isSpinning = false
+        }
+      );
+    }
   }
 
   updateConfirmValidator(): void {
@@ -54,32 +119,8 @@ export class SignupComponent implements OnInit {
     return {};
   };
 
-  constructor(private fb: NonNullableFormBuilder) {
-    this.validateForm = this.fb.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]],
-      checkPassword: ['', [Validators.required, this.confirmationValidator]],
-      nickname: ['', [Validators.required]],
-      agree: [false],
-    });
-  }
-
   ngOnInit(): void {
-    this.checkWindowScroll();
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event): void {
-    this.checkWindowScroll(); // Check window scroll position
-  }
 
-  private checkWindowScroll(): void {
-    if (typeof window !== 'undefined') {
-      const scrollY = window.scrollY;
-      this.backgroundColorNavbar = scrollY > 0 ? '#e2e8f0' : '#e2e8f0';
-      this.textColor = scrollY > 0 ? 'black' : 'black';
-      this.boxShadowBottom =
-        scrollY > 0 ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none';
-    }
-  }
 }

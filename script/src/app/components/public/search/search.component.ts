@@ -8,9 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit , OnDestroy{
-  backgroundColorNavbar: string = '#e2e8f0';
-  textColor: string = 'black';
-  boxShadowBottom: string = 'none';
+
   //form
   searchForm !: FormGroup
 
