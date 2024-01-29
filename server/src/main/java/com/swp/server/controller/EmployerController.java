@@ -17,7 +17,7 @@ public class EmployerController {
     public ResponseEntity<?> hello(){
         return ResponseEntity.ok("hllo");
     }
-    @GetMapping("profileJobseeker")
+    @PostMapping("profileJobseeker")
     public ResponseEntity<?> viewJobseekerProfile(@RequestBody ViewProfileDTO viewProfileDTO){
         return employerService.viewJobSeekerProfile(viewProfileDTO);
     }

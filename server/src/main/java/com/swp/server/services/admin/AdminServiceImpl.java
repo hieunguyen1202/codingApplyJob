@@ -3,6 +3,7 @@ package com.swp.server.services.admin;
 import com.swp.server.dto.BlockAccountDTO;
 import com.swp.server.dto.CreateAccountDTO;
 import com.swp.server.dto.ProfileDTO;
+import com.swp.server.dto.ResponseProfileDTO;
 import com.swp.server.entities.Account;
 import com.swp.server.entities.Profile;
 import com.swp.server.entities.Role;
@@ -33,21 +34,26 @@ public class AdminServiceImpl implements AdminService{
                 error.put("error", "There's nothing to display");
                 return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
             }
-            List<ProfileDTO> responseProfileDTO = new ArrayList<>();
+            List<ResponseProfileDTO> responseProfileDTO = new ArrayList<>();
             for(Account a: accounts){
-                Profile profileEntity = a.getProfile();
-                if (profileEntity == null) {
+                Profile profile = a.getProfile();
+                if (profile == null) {
                     Map<String, String> error = new HashMap<>();
                     error.put("error", "Profile not found!");
                     return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
                 }
-                ProfileDTO responseDTO = new ProfileDTO();
-                responseDTO.setFirstName(profileEntity.getFirstName());
-                responseDTO.setLastName(profileEntity.getLastName());
-                responseDTO.setPhoneNumber(profileEntity.getPhoneNumber());
-                responseDTO.setAddress(profileEntity.getAddress());
-                responseDTO.setGender(profileEntity.isGender());
-                responseProfileDTO.add(responseDTO);
+                ResponseProfileDTO profileResponse = new ResponseProfileDTO();
+
+
+                profileResponse.setAddress(profile.getAddress());
+                profileResponse.setEmail(a.getEmail());
+                profileResponse.setFirstName(profile.getFirstName());
+                profileResponse.setLastName(profile.getLastName());
+                profileResponse.setPhoneNumber(profile.getPhoneNumber());
+                profileResponse.setGender(profile.isGender());
+                profileResponse.setAvatar(profile.getAvatar());
+                responseProfileDTO.add(profileResponse);
+
 
             }
             return ResponseEntity.ok(responseProfileDTO);
@@ -133,13 +139,13 @@ public class AdminServiceImpl implements AdminService{
                 blockAccount.setEnabled(false);
                 accountRepo.save(blockAccount);
                 Map<String, Object> msg = new HashMap<>();
-                msg.put("msg", "Block account "+blockAccount.getEmail() +" successfully !!!");
+                msg.put("success", "Block account "+blockAccount.getEmail() +" successfully !!!");
                 return new ResponseEntity<>(msg, HttpStatus.ACCEPTED);
             }else{
                 blockAccount.setEnabled(true);
                 accountRepo.save(blockAccount);
                 Map<String, Object> msg = new HashMap<>();
-                msg.put("msg", "Unblock account "+blockAccount.getEmail()+" successfully !!!");
+                msg.put("success", "Unblock account "+blockAccount.getEmail()+" successfully !!!");
                 return new ResponseEntity<>(msg, HttpStatus.ACCEPTED);
             }
 
