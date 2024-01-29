@@ -61,7 +61,15 @@ public class ProfileController {
 	public ResponseEntity<?> viewProfileByEmail(@RequestBody AccountDTO account) {
 		return profileService.viewProfileByEmail(account);
 	}
-
+	// update cv
+	@PutMapping("/update-cv/{accountId}")
+	public ResponseEntity<?> updateCvByAccountId(@PathVariable int accountId, @ModelAttribute ProfileDTO profileDTO){
+		return  profileService.updateCvByAccountId(accountId,profileDTO);
+	}	// update avatar
+	@PutMapping("/update-avatar/{accountId}")
+	public ResponseEntity<?> updateAvatarByAccountId(@PathVariable int accountId, @ModelAttribute ProfileDTO profileDTO){
+		return  profileService.updateAvatarByAccountId(accountId,profileDTO);
+	}
 	// dowload cv
 	@GetMapping("/downloadFile/{accountId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String accountId, HttpServletRequest request) {
