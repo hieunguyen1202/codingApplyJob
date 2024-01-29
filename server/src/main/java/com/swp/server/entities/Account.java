@@ -75,7 +75,6 @@ public class Account implements UserDetails {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
 	public int getId() {
 		return id;
 	}
