@@ -67,9 +67,11 @@ public class ProfileServiceImpl implements ProfileService {
 			if (profileDTO.getAddress() != null) {
 				profileToUpdate.setAddress(profileDTO.getAddress());
 			}
+
 			if (profileDTO.getFirstName() != null) {
 				profileToUpdate.setFirstName(profileDTO.getFirstName());
 			}
+
 			if (profileDTO.getLastName() != null) {
 				profileToUpdate.setLastName(profileDTO.getLastName());
 			}

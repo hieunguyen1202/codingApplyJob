@@ -62,6 +62,7 @@ public class ProfileController {
 	public ResponseEntity<?> viewProfileByEmail(@RequestBody AccountDTO account) {
 		return profileService.viewProfileByEmail(account);
 	}
+
 	// update cv
 	@PutMapping("/update-profile")
 	public ResponseEntity<?> updateProfileByEmail(@ModelAttribute UpdateProfileDTO profileDTO){

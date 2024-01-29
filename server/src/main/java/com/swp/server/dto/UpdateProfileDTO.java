@@ -19,19 +19,15 @@ public class UpdateProfileDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
     public MultipartFile getCV() {
         return CV;
     }
-
     public void setCV(MultipartFile CV) {
         this.CV = CV;
     }
-
     public MultipartFile getAvatar() {
         return avatar;
     }
-
     public void setAvatar(MultipartFile avatar) {
         this.avatar = avatar;
     }
