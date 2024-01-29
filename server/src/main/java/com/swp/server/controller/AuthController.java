@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swp.server.dto.ChangePasswordDTO;
+import com.swp.server.dto.EmailDTO;
 import com.swp.server.dto.LoginDTO;
 import com.swp.server.dto.OTPCodeAndEmailDTO;
 import com.swp.server.dto.ReceiverOtpCode;
@@ -48,6 +49,12 @@ public class AuthController {
 	@PostMapping("/verifyAccount")
 	public ResponseEntity<?> verifyAccount(@RequestBody OTPCodeAndEmailDTO codeAndEmailDTO) {
 		return authService.verifyAccount(codeAndEmailDTO);
+	}
+
+	// find account by email
+	@PostMapping("/findEmail")
+	public ResponseEntity<?> findAccountByEmail(@RequestBody EmailDTO emailDTO) {
+		return authService.findAccountByEmail(emailDTO);
 	}
 
 }

@@ -68,7 +68,6 @@ public class Account implements UserDetails {
 		this.timeOtpCreated = timeOtpCreated;
 		this.role = role;
 	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -76,9 +75,6 @@ public class Account implements UserDetails {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-
-
 	public int getId() {
 		return id;
 	}

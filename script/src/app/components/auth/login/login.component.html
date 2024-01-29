@@ -1,29 +1,29 @@
-<app-navbar [backgroundColorNavbar]="backgroundColorNavbar" [textColor]="textColor" [boxShadowBottom]="boxShadowBottom"></app-navbar>
+<app-navbar></app-navbar>
 <div class="flex justify-center pt-52 pb-44 bg-gray-100">
   <form
     style="width: 100%; background-color: white; padding: 20px"
     nz-form
     [formGroup]="validateForm"
     class="login-form shadow-md rounded-md"
-    (ngSubmit)="submitForm()"
   >
+  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Đang đăng nhập...">
     <div class="text-center mb-4" style="width: 100%">
       <h1 class="font-bold text-2xl">Đăng nhập</h1>
     </div>
     <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your username!">
+      <nz-form-control nzErrorTip="Vui long nhập email để đăng nhậps!">
         <nz-input-group nzPrefixIcon="user">
           <input
             type="text"
             nz-input
-            formControlName="userName"
+            formControlName="email"
             placeholder="Email"
           />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-form-control nzErrorTip="Vui lòng không để trống!">
         <nz-input-group nzPrefixIcon="lock">
           <input
             type="password"
@@ -48,6 +48,7 @@
       nz-button
       class="login-form-button login-form-margin"
       [nzType]="'primary'"
+      (click)="submitForm()"
     >
       Log in
     </button>
@@ -58,5 +59,6 @@
       routerLink="/signup"
       >register now!</b
     >
+    </nz-spin>
   </form>
 </div>

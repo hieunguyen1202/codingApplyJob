@@ -1,158 +1,153 @@
-<div class="mb-5 mt-5 pt-12 flex justify-center">
-    <div class="max-w-sm ml-10 w-2/5 mr-10 bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
-        <div class="border-b px-4 pb-6">
-            <div class="text-center">
-                <img class="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4"
-                    src="https://flowbite.com/application-ui/demo/images/users/jese-leos-2x.png" alt="">
-                <button id="editButton"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 border border-blue-700 rounded"
-                    (click)="openPopup()">
+<div class="flex-grow mb-10">
+  <app-navbar></app-navbar>
+  <nz-spin
+    [nzSpinning]="isSpinning"
+    [nzSize]="'large'"
+    nzTip="Đang gửi mã xác thực..."
+  >
+    <div class="mt-24">
+      <div class="w-full my-auto flex items-center justify-center gap-5 mb-20">
+        <!-- left -->
+        <div class="w-1/2 flex flex-col gap-8">
+          <form [formGroup]="formProfile" class="my-auto">
+            <div class="w-full shadow-2xl p-5 rounded-md">
+              <div class="font-bold text-2xl mb-8">
+                Cài đặt thông tin cá nhân
+              </div>
+
+              <div class="mb-7">
+                <label for="firstName">Tên</label>
+                <br />
+
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  id="firstName"
+                  formControlName="firstName"
+                  type="text"
+                  placeholder="Điền tên của bạn..."
+                />
+              </div>
+
+              <div class="mb-7">
+                <label for="lastName">Họ</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  id="lastName"
+                  formControlName="lastName"
+                  type="text"
+                  placeholder="Điền họ của bạn..."
+                />
+              </div>
+
+              <div class="mb-7">
+                <label for="phoneNumber">Số điện thoại</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  id="phoneNumber"
+                  placeholder="Điền số điện thoại của bạn"
+                  formControlName="phoneNumber"
+                  type="number"
+                />
+              </div>
+
+              <div class="mb-7">
+                <label for="gender">Giới tính</label>
+                <br />
+                <nz-radio-group formControlName="gender" nzButtonStyle="solid">
+                  <label nz-radio-button [nzValue]="true">Trai</label>
+                  <label nz-radio-button [nzValue]="false">Gái</label>
+                </nz-radio-group>
+              </div>
+              <div class="mb-7">
+                <label for="address">Địa chỉ</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  placeholder="Điền địa chỉ của bạn"
+                  id="address"
+                  type="text"
+                  formControlName="address"
+                />
+              </div>
+
+              <div>
+                <button
+                  class="text-white rounded-md font-semibold p-2 bg-green-700 hover:bg-green-500"
+                  (click)="onUpdateProfile()"
+                >
+                  Cập nhật
                 </button>
-                <div class="py-2">
-                    <h3 class="font-bold text-2xl text-gray-800 dark:text-white mb-1">Nguyen Huu Hieu</h3>
-                    <div class="inline-flex text-gray-700 dark:text-gray-300 items-center">
-                        <svg class="h-5 w-5 text-gray-400 dark:text-gray-600 mr-1" fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path class=""
-                                d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
-                        </svg>
-                        Hanoi, Vietnam
-                    </div>
-                </div><br>
+              </div>
             </div>
-            <div class="content-profile text-left text-sm">
-                <div class="email">
-                    <label class="text-slate-400">Email address</label><br>
-                    <h5 class="font-medium">hieunguyenhd2003gmail.com</h5>
-                </div>
-                <div class="phone-number mt-2">
-                    <label class="text-slate-400">Phone number</label><br>
-                    <h5 class="font-medium">0367752115</h5>
-                </div>
-                <div class="gender mt-2">
-                    <span class="text-slate-400">Gender</span><br>
-                    <h5 class="font-medium">Male</h5>
-                </div>
-                <div class="cv mt-2">
-                    <span class="text-slate-400">CV</span><br>
-                    MyCV.pdf
-                </div>
-            </div>
+          </form>
         </div>
-    </div>
-</div>
 
-<!-- The pop-up -->
-<div id="editPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" [hidden]="!showPopup">
-    <div class="max-w-lg mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
-        <div class="p-4">
-            <!-- Your form elements here -->
-            <h2 class="text-2xl font-bold">Edit Profile</h2>
-            <!-- ... -->
-            <div class="profile-edit max-w-screen-lg">
-                <form class="w-full max-w-lg">
-                    <div class="flex">
-                        <img class="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 my-4"
-                            src="https://flowbite.com/application-ui/demo/images/users/jese-leos-2x.png" alt="">
-                        <div class="my-auto ml-4">
-                            <input type="file" id="file_input" class="sr-only">
-                            <label for="file_input"
-                                class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Choose File
-                            </label>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-4">
-                        <div class="w-full md:w-1/2 px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-first-name">
-                                First Name
-                            </label>
-                            <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                                id="grid-first-name" type="text">
-                        </div>
-                        <div class="w-full md:w-1/2 px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-last-name">
-                                Last Name
-                            </label>
-                            <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text">
-                        </div>
-                    </div>
-                    <div class="gender-field mb-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-gender">
-                            Gender
-                        </label>
-                        <div class="flex flex-wrap">
-                            <div class="flex flex-wrap w-full px-3">
-                                <div class="flex items-center me-4">
-                                    <input id="red-radio" type="radio" value="" name="colored-radio"
-                                        class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-radio"
-                                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="green-radio" type="radio" value="" name="colored-radio"
-                                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="green-radio"
-                                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-city">
-                                Phone number
-                            </label>
-                            <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-city" type="text">
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-city">
-                                Address
-                            </label>
-                            <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-city" type="text">
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="file_input">CV</label>
-                            <div class="relative">
-                                <input type="file" id="file_input" class="sr-only">
-                                <label for="file_input"
-                                    class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    Choose File
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="comfirm flex justify-around">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Save
-                        </button>
-                        <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                            <a href="./profile">Close</a>
-                        </button>
-                    </div>
-                </form>
+        <!-- right -->
+        <div class="w-1/3 h-full shadow-2xl p-5">
+          <div class="w-full rounded-md">
+            <div class="flex gap-5">
+              @if(user.avatar !== null){
+              <img
+                [src]="user.avatar"
+                class="rounded-full h-20 w-20 mt-5"
+                alt=""
+              />
+              }@else {
+              <img
+                src="assets/images/avatar.png"
+                class="rounded-full h-20 w-20 mt-5"
+                alt=""
+              />
+              }
+              <div>
+                <p class="text-gray-500">Chào mừng bạn trở lại,</p>
+                <p class="font-semibold">Minh Vũ</p>
+                <div *ngIf="checkUserVerify; else loadingContent">
+                  <div *ngIf="!checkUserVerify.verified">
+                    <p class="text-gray-500">Chào mừng bạn trở lại,</p>
+                    <p class="font-semibold">{{ user.firstName }}</p>
+                    <p class="bg-red-500 text-white p-1 w-fit rounded-md">
+                      Tài khoản chưa xác thực
+                    </p>
+                    <p
+                      class="mt-2 bg-blue-500 hover:bg-blue-300 cursor-pointer text-white p-1 w-fit rounded-md"
+                      (click)="verify()"
+                    >
+                      Nhấn vào đây để xác thực tài khoản
+                    </p>
+                  </div>
+                  <div *ngIf="checkUserVerify.verified">
+                    <p class="text-gray-500">Chào mừng bạn trở lại,</p>
+                    <p class="font-semibold">{{ user.firstName }}</p>
+                    <p class="bg-green-500 text-white p-1 w-fit rounded-md">
+                      Tài khoản của bạn đã được xác thực
+                    </p>
+                  </div>
+                </div>
+                <ng-template #loadingContent>
+                  <nz-spin></nz-spin>
+                </ng-template>
+              </div>
             </div>
-
+            <div class="pt-20 flex justify-center items-center h-fit">
+              <div class="scale-50">
+                <p class="font-bold text-2xl">Tải CV lên(CV dạng file pdf)</p>
+                <p-fileUpload
+                  chooseLabel="Chọn file tải lên"
+                  name="demo[]"
+                  url="https://www.primefaces.org/cdn/api/upload.php"
+                  accept="application/pdf"
+                  [maxFileSize]="5000000"
+                  (onUpload)="onUpload($event)"
+                  class="w-full h-32"
+                ></p-fileUpload>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </nz-spin>
 </div>
