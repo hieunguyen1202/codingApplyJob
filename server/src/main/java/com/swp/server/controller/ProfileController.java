@@ -67,6 +67,8 @@ public class ProfileController {
 	public ResponseEntity<?> updateProfileByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
 		return  profileService.updateProfileByEmail(profileDTO);
 	}
+
+
 	// dowload cv
 	@GetMapping("/downloadFile/{accountId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String accountId, HttpServletRequest request) {

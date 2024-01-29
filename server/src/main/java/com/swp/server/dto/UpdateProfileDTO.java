@@ -6,20 +6,16 @@ public class UpdateProfileDTO {
     private String email;
     private MultipartFile CV;
     private  MultipartFile avatar;
-
     public UpdateProfileDTO() {
     }
-
     public UpdateProfileDTO(String email, MultipartFile CV, MultipartFile avatar) {
         this.email = email;
         this.CV = CV;
         this.avatar = avatar;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
