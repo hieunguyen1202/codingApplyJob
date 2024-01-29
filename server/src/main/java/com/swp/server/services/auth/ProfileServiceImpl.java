@@ -160,38 +160,50 @@ public class ProfileServiceImpl implements ProfileService {
 
 
 	@Override
-	public ResponseEntity<?> updateProfileByAccountId(int accountId, UpdateProfileDTO profileDTO) {
-		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(accountId);
+	public ResponseEntity<?> updateProfileByEmail(UpdateProfileDTO profileDTO) {
+		String email = profileDTO.getEmail();
+		if (email == null) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Email cannot be null");
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
 
-		if (profileOptional.isPresent()) {
-			Profile profileToUpdate = profileOptional.get();
-			try {
-				MultipartFile cvFile = profileDTO.getCV();
-				if (cvFile != null && !cvFile.isEmpty()) {
-					profileToUpdate.setCV(cvFile.getBytes());
-				}
+		Optional<Account> account = accountRepo.findFirstByEmail(email);
+		if (account.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Account not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
 
-				MultipartFile avatarFile = profileDTO.getAvatar();
-				if (avatarFile != null && !avatarFile.isEmpty()) {
-					profileToUpdate.setAvatar(avatarFile.getBytes());
-				}
-
-				profileRepo.save(profileToUpdate);
-
-				Map<String, Object> success = new HashMap<>();
-				success.put("success", "Profile updated successfully");
-				return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
-			} catch (IOException e) {
-				Map<String, String> error = new HashMap<>();
-				error.put("error", "Failed to update profile");
-				return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		} else {
+		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(account.get().getId());
+		if (profileOptional.isEmpty()) {
 			Map<String, String> error = new HashMap<>();
 			error.put("error", "Profile not found");
 			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 		}
 
+		Profile profileToUpdate = profileOptional.get();
+		try {
+			MultipartFile cvFile = profileDTO.getCV();
+			if (cvFile != null && !cvFile.isEmpty()) {
+				profileToUpdate.setCV(cvFile.getBytes());
+			}
+
+			MultipartFile avatarFile = profileDTO.getAvatar();
+			if (avatarFile != null && !avatarFile.isEmpty()) {
+				profileToUpdate.setAvatar(avatarFile.getBytes());
+			}
+
+			profileRepo.save(profileToUpdate);
+
+			Map<String, Object> success = new HashMap<>();
+			success.put("success", "Profile updated successfully");
+			return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
+		} catch (IOException e) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Failed to update profile");
+			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

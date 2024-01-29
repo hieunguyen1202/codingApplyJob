@@ -63,9 +63,9 @@ public class ProfileController {
 		return profileService.viewProfileByEmail(account);
 	}
 	// update cv
-	@PutMapping("/update-profile/{accountId}")
-	public ResponseEntity<?> updateProfileByAccountId(@PathVariable int accountId, @ModelAttribute UpdateProfileDTO profileDTO){
-		return  profileService.updateProfileByAccountId(accountId,profileDTO);
+	@PutMapping("/update-profile")
+	public ResponseEntity<?> updateProfileByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
+		return  profileService.updateProfileByEmail(profileDTO);
 	}
 	// dowload cv
 	@GetMapping("/downloadFile/{accountId}")
