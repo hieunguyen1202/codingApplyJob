@@ -158,8 +158,9 @@ public class ProfileServiceImpl implements ProfileService {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
+
 	@Override
-	public ResponseEntity<?> updateCvByAccountId(int accountId, ProfileDTO profileDTO) {
+	public ResponseEntity<?> updateProfileByAccountId(int accountId, UpdateProfileDTO profileDTO) {
 		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(accountId);
 
 		if (profileOptional.isPresent()) {
@@ -168,51 +169,21 @@ public class ProfileServiceImpl implements ProfileService {
 				MultipartFile cvFile = profileDTO.getCV();
 				if (cvFile != null && !cvFile.isEmpty()) {
 					profileToUpdate.setCV(cvFile.getBytes());
-					profileRepo.save(profileToUpdate);
-
-					Map<String, Object> success = new HashMap<>();
-					success.put("success", "CV profile updated successfully");
-					return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
-				} else {
-					Map<String, String> error = new HashMap<>();
-					error.put("error", "CV file is empty");
-					return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 				}
-			} catch (IOException e) {
-				Map<String, String> error = new HashMap<>();
-				error.put("error", "Failed to update CV profile");
-				return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		} else {
-			Map<String, String> error = new HashMap<>();
-			error.put("error", "Profile not found");
-			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-		}
-	}
 
-	@Override
-	public ResponseEntity<?> updateAvatarByAccountId(int accountId, ProfileDTO profileDTO) {
-		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(accountId);
-
-		if (profileOptional.isPresent()) {
-			Profile profileToUpdate = profileOptional.get();
-			try {
 				MultipartFile avatarFile = profileDTO.getAvatar();
 				if (avatarFile != null && !avatarFile.isEmpty()) {
 					profileToUpdate.setAvatar(avatarFile.getBytes());
-					profileRepo.save(profileToUpdate);
-
-					Map<String, Object> success = new HashMap<>();
-					success.put("success", "Avatar profile updated successfully");
-					return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
-				} else {
-					Map<String, String> error = new HashMap<>();
-					error.put("error", "Avatar file is empty");
-					return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 				}
+
+				profileRepo.save(profileToUpdate);
+
+				Map<String, Object> success = new HashMap<>();
+				success.put("success", "Profile updated successfully");
+				return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
 			} catch (IOException e) {
 				Map<String, String> error = new HashMap<>();
-				error.put("error", "Failed to update Avatar profile");
+				error.put("error", "Failed to update profile");
 				return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} else {
@@ -220,6 +191,7 @@ public class ProfileServiceImpl implements ProfileService {
 			error.put("error", "Profile not found");
 			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 		}
+
 	}
 
 }
