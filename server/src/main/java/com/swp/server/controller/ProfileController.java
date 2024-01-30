@@ -2,6 +2,7 @@ package com.swp.server.controller;
 
 import com.swp.server.dto.AccountDTO;
 import com.swp.server.dto.ProfileDTO;
+import com.swp.server.dto.UpdateProfileDTO;
 import com.swp.server.entities.Profile;
 import com.swp.server.repository.ProfileRepo;
 import com.swp.server.services.auth.ProfileService;
@@ -49,13 +50,16 @@ public class ProfileController {
 		return profileService.viewProfileByEmail(account);
 	}
 
-	// view all profile
+// update cv
+	@PutMapping("/update-profile")
+	public ResponseEntity<?> updateProfileByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
+		return  profileService.updateProfileByEmail(profileDTO);
+	}
+// view all profile
 	@GetMapping("/getAllProfile")
 	public ResponseEntity<?> getAllProfile() {
 		return profileService.getAllProfile();
-	}
-
-	// dowload cv
+	}	// dowload cv
 	@GetMapping("/downloadFile/{accountId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String accountId, HttpServletRequest request) {
 		Optional<Profile> profile = profileRepo.findFirstByAccount_id(Integer.parseInt(accountId));
