@@ -60,7 +60,6 @@ public class ProfileServiceImpl implements ProfileService {
 				error.put("error", "Invalid last name! Please enter more than one character.");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-
 			if (!(profileDTO.getAddress().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{5,100}$"))) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Invalid address! Please enter more than five characters.");
@@ -76,7 +75,6 @@ public class ProfileServiceImpl implements ProfileService {
 			if (profileDTO.getAddress() != null) {
 				profileToUpdate.setAddress(profileDTO.getAddress());
 			}
-
 			if (profileDTO.getFirstName() != null) {
 				profileToUpdate.setFirstName(profileDTO.getFirstName());
 			}
@@ -88,7 +86,6 @@ public class ProfileServiceImpl implements ProfileService {
 			profileToUpdate.setGender(profileDTO.isGender());
 			if (profileDTO.getPhoneNumber() != null) {
 				profileToUpdate.setPhoneNumber(profileDTO.getPhoneNumber());
-
 			}
 			// Check if avatar is provided
 			if (profileDTO.getAvatar() != null && !profileDTO.getAvatar().isEmpty()) {
