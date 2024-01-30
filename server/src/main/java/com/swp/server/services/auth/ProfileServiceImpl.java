@@ -78,7 +78,6 @@ public class ProfileServiceImpl implements ProfileService {
 			if (profileDTO.getFirstName() != null) {
 				profileToUpdate.setFirstName(profileDTO.getFirstName());
 			}
-
 			if (profileDTO.getLastName() != null) {
 				profileToUpdate.setLastName(profileDTO.getLastName());
 			}
@@ -91,7 +90,6 @@ public class ProfileServiceImpl implements ProfileService {
 			if (profileDTO.getAvatar() != null && !profileDTO.getAvatar().isEmpty()) {
 				profileToUpdate.setAvatar(profileDTO.getAvatar().getBytes());
 			}
-
 			// Check if CV is provided
 			if (profileDTO.getCV() != null && !profileDTO.getCV().isEmpty()) {
 				profileToUpdate.setCV(profileDTO.getCV().getBytes());
