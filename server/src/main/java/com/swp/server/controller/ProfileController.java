@@ -37,7 +37,6 @@ public class ProfileController {
 	public ResponseEntity<?> createProfile(@ModelAttribute ProfileDTO profileDTO) {
 		return profileService.createProfile(profileDTO);
 	}
-
 	// view profile
 	@GetMapping("/profile")
 	public ResponseEntity<?> viewProfile(@ModelAttribute ProfileDTO profileDTO) {
@@ -61,7 +60,6 @@ public class ProfileController {
 	public ResponseEntity<?> updateProfileAvatarByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
 		return  profileService.updateProfileAvatarByEmail(profileDTO);
 	}
-
 // view all profile
 	@GetMapping("/getAllProfile")
 	public ResponseEntity<?> getAllProfile() {

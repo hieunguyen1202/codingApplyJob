@@ -41,7 +41,6 @@ public class ProfileServiceImpl implements ProfileService {
 //                error.put("error", "Phone number is already registered!");
 //                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 //            }
-//
 			String phoneNumberRegex = "^(\\+84|0)(3[2-9]|5[2689]|7[06-9]|8[1-689]|9[0-9])\\d{7}$";
 			Pattern patternPhone = Pattern.compile(phoneNumberRegex);
 			Matcher matcherPhone = patternPhone.matcher(profileDTO.getPhoneNumber());
