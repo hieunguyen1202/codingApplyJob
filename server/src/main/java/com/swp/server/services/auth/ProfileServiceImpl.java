@@ -11,8 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -137,18 +141,20 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public ResponseEntity<?> viewProfileByEmail(AccountDTO accountDTO) {
-         System.out.print(accountDTO.getId());
+		System.out.print(accountDTO.getId());
 		Optional<Profile> findProfileByEmail = profileRepo.findFirstByAccount_id(accountDTO.getId());
 
 		if (findProfileByEmail.isPresent()) {
 			Map<String, Object> success = new HashMap<String, Object>();
 			success.put("success", "Get profile successfully !!!");
-			ProfileDTO responseDTO = new ProfileDTO();
+			ProfileDTOWithImgCV responseDTO = new ProfileDTOWithImgCV();
 			responseDTO.setFirstName(findProfileByEmail.get().getFirstName());
 			responseDTO.setLastName(findProfileByEmail.get().getLastName());
 			responseDTO.setPhoneNumber(findProfileByEmail.get().getPhoneNumber());
 			responseDTO.setAddress(findProfileByEmail.get().getAddress());
 			responseDTO.setGender(findProfileByEmail.get().isGender());
+			responseDTO.setAvatar(findProfileByEmail.get().getAvatar());
+			responseDTO.setCv(findProfileByEmail.get().getCV());
 			success.put("metadata", responseDTO);
 			return ResponseEntity.ok(success);
 		}
@@ -158,8 +164,7 @@ public class ProfileServiceImpl implements ProfileService {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
-
-	@Override
+@Override
 	public ResponseEntity<?> updateProfileByEmail(UpdateProfileDTO profileDTO) {
 		String email = profileDTO.getEmail();
 		if (email == null) {
@@ -203,4 +208,26 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 	}
 
-}
+public ResponseEntity<?> getAllProfile() {
+		List<Profile> findAll = profileRepo.findAll();
+		List<ProfileDTO> dtos = new ArrayList<>();
+
+		if (!findAll.isEmpty()) {
+
+			for (Profile profile : findAll) {
+				ProfileDTO profileDTO = new ProfileDTO();
+				profileDTO.setFirstName(profile.getFirstName());
+				profileDTO.setLastName(profile.getLastName());
+				dtos.add(profileDTO);
+			}
+
+			Map<String, Object> success = new HashMap<String, Object>();
+			success.put("success", "Get profiles successfully!");
+			success.put("metadata", dtos);
+			return ResponseEntity.ok(success);
+		} else {
+			Map<String, String> info = new HashMap<>();
+			info.put("info", "No profiles found.");
+			return ResponseEntity.ok(info);
+		}
+	}}

@@ -1,7 +1,5 @@
 <div class="flex-grow mb-10">
-  <app-navbar
-    
-  ></app-navbar>
+  <app-navbar></app-navbar>
 
   <div class="mt-20">
     <div>
@@ -16,7 +14,8 @@
                     <div class="border border-gray-300 rounded-sm pl-2">
                       <i class="fa-solid fa-magnifying-glass"></i>
                       <input
-                        type="text"se
+                        type="text"
+                        se
                         placeholder="Điền từ khóa để tìm kiếm ..."
                         formControlName="textSearch"
                         class="outline-none p-2 px-5"
@@ -51,64 +50,74 @@
                       <option value="1">Danang</option>
                     </select>
                   </div>
-                </div>
 
-                <div class="flex gap-5 mt-5 items-center justify-center">
-                  <div class="border border-gray-300 w-52 rounded-sm">
-                    <select
-                      class="w-full h-full outline-none p-2"
-                      pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
+                  <div class="">
+                    <i
+                      pTooltip="Tìm kiếm nâng cao"
                       tooltipPosition="top"
-                      formControlName="careerLevel"
-                    >
-                      <option value="3" selected>Trình độ nghề nghiệp</option>
-                      <option value="21">HoChiMing</option>
-                      <option value="3">Cantho</option>
-                      <option value="1">Danang</option>
-                    </select>
-                  </div>
-                  <div class="border border-gray-300 w-52 rounded-sm">
-                    <select
-                      class="w-full h-full outline-none p-2"
-                      pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
-                      tooltipPosition="top"
-                      formControlName="experience"
-                    >
-                      <option value="3" selected>Số năm kinh nghiệm</option>
-                      <option value="21">HoChiMing</option>
-                      <option value="3">Cantho</option>
-                      <option value="1">Danang</option>
-                    </select>
-                  </div>
-                  <div class="border border-gray-300 w-52 rounded-sm">
-                    <select
-                      class="w-full h-full outline-none p-2"
-                      pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
-                      tooltipPosition="top"
-                      formControlName="offerSalary"
-                    >
-                      <option value="3" selected>Tiền lương</option>
-                      <option value="21">HoChiMing</option>
-                      <option value="3">Cantho</option>
-                      <option value="1">Danang</option>
-                    </select>
-                  </div>
-                  <div class="border border-gray-300 w-52 rounded-sm">
-                    <select
-                      class="w-full h-full outline-none p-2"
-                      pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
-                      tooltipPosition="top"
-                      formControlName="qualification"
-                    >
-                      <option value="3" selected>Trình độ học vấn</option>
-                      <option value="21">HoChiMing</option>
-                      <option value="3">Cantho</option>
-                      <option value="1">Danang</option>
-                    </select>
+                      class="text-xl fa-solid fa-filter cursor-pointer"
+                      (click)="advanced()"
+                    ></i>
                   </div>
                 </div>
               </div>
             </div>
+            @if(advancedSearch === true){
+              <div class="flex gap-5 mt-5 items-center justify-center">
+                <div class="border border-gray-300 w-52 rounded-sm">
+                  <select
+                    class="w-full h-full outline-none p-2"
+                    pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
+                    tooltipPosition="top"
+                    formControlName="careerLevel"
+                  >
+                    <option value="3" selected>Trình độ nghề nghiệp</option>
+                    <option value="21">HoChiMing</option>
+                    <option value="3">Cantho</option>
+                    <option value="1">Danang</option>
+                  </select>
+                </div>
+                <div class="border border-gray-300 w-52 rounded-sm">
+                  <select
+                    class="w-full h-full outline-none p-2"
+                    pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
+                    tooltipPosition="top"
+                    formControlName="experience"
+                  >
+                    <option value="3" selected>Số năm kinh nghiệm</option>
+                    <option value="21">HoChiMing</option>
+                    <option value="3">Cantho</option>
+                    <option value="1">Danang</option>
+                  </select>
+                </div>
+                <div class="border border-gray-300 w-52 rounded-sm">
+                  <select
+                    class="w-full h-full outline-none p-2"
+                    pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
+                    tooltipPosition="top"
+                    formControlName="offerSalary"
+                  >
+                    <option value="3" selected>Tiền lương</option>
+                    <option value="21">HoChiMing</option>
+                    <option value="3">Cantho</option>
+                    <option value="1">Danang</option>
+                  </select>
+                </div>
+                <div class="border border-gray-300 w-52 rounded-sm">
+                  <select
+                    class="w-full h-full outline-none p-2"
+                    pTooltip="Bạn có thể có các lựa chọn lọc tìm kiếm ở đây"
+                    tooltipPosition="top"
+                    formControlName="qualification"
+                  >
+                    <option value="3" selected>Trình độ học vấn</option>
+                    <option value="21">HoChiMing</option>
+                    <option value="3">Cantho</option>
+                    <option value="1">Danang</option>
+                  </select>
+                </div>
+              </div>
+            }
             <div class="flex items-center justify-center mt-5">
               <button
                 tooltipPosition="top"
@@ -129,10 +138,15 @@
       </div> -->
 
       <!-- list job -->
+      <div class="px-36">
+        <p class="font-semibold text-lg mt-10">
+          Có <span class="text-blue-600 underline font-bold">35</span> công việc
+        </p>
+      </div>
       <div
-        class="mt-10 flex items-center justify-center flex-wrap w-full px-10 gap-2"
+        class="mt-10 flex items-center justify-center flex-wrap w-full px-36 gap-5"
       >
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -157,7 +171,7 @@
           </div>
         </div>
 
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -182,7 +196,7 @@
           </div>
         </div>
 
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -207,7 +221,7 @@
           </div>
         </div>
 
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -232,7 +246,7 @@
           </div>
         </div>
 
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -257,7 +271,7 @@
           </div>
         </div>
 
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -281,7 +295,7 @@
             </button>
           </div>
         </div>
-        <div class="basis-1/3 flex justify-between w-96 border p-5 shadow-lg">
+        <div class="w-full flex justify-between border p-5 shadow-lg">
           <div>
             <div>
               <h1 class="font-bold hover:opacity-75 cursor-pointer">
@@ -318,3 +332,5 @@
     </div>
   </div>
 </div>
+
+

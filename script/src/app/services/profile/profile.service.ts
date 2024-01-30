@@ -17,4 +17,8 @@ export class ProfileService {
   findAccountByEmail(data: any): Observable<any> {
     return this.http.post(BASIC_URL + 'api/auth/findEmail', data);
   }
+
+  updateProfileByEmail(data: any): Observable<any> {
+    return this.http.put(BASIC_URL + 'api/auth/createprofile', data);
+  }
 }

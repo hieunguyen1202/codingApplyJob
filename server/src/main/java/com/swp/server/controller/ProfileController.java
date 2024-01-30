@@ -27,19 +27,6 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 public class ProfileController {
 
-//    public Resource loadFileAsResource(String fileName) {
-//        try {
-//            Resource resource = new UrlResource(fileName.toUri());
-//            if(resource.exists()) {
-//                return resource;
-//            } else {
-//                throw new MyFileNotFoundException("File not found " + fileName);
-//            }
-//        } catch (MalformedURLException ex) {
-//            throw new MyFileNotFoundException("File not found " + fileName, ex);
-//        }
-//    }
-
 	@Autowired
 	private ProfileRepo profileRepo;
 
@@ -63,14 +50,16 @@ public class ProfileController {
 		return profileService.viewProfileByEmail(account);
 	}
 
-	// update cv
+// update cv
 	@PutMapping("/update-profile")
 	public ResponseEntity<?> updateProfileByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
 		return  profileService.updateProfileByEmail(profileDTO);
 	}
-
-
-	// dowload cv
+// view all profile
+	@GetMapping("/getAllProfile")
+	public ResponseEntity<?> getAllProfile() {
+		return profileService.getAllProfile();
+	}	// dowload cv
 	@GetMapping("/downloadFile/{accountId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String accountId, HttpServletRequest request) {
 		Optional<Profile> profile = profileRepo.findFirstByAccount_id(Integer.parseInt(accountId));
