@@ -50,11 +50,18 @@ public class ProfileController {
 		return profileService.viewProfileByEmail(account);
 	}
 
-// update cv
-	@PutMapping("/update-profile")
-	public ResponseEntity<?> updateProfileByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
-		return  profileService.updateProfileByEmail(profileDTO);
+	// update cv
+	@PutMapping("/update-profile-cv")
+	public ResponseEntity<?> updateProfileCVByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
+		return  profileService.updateProfileCVByEmail(profileDTO);
 	}
+
+	// update avatar
+	@PutMapping("/update-profile-avatar")
+	public ResponseEntity<?> updateProfileAvatarByEmail(@ModelAttribute UpdateProfileDTO profileDTO){
+		return  profileService.updateProfileAvatarByEmail(profileDTO);
+	}
+
 // view all profile
 	@GetMapping("/getAllProfile")
 	public ResponseEntity<?> getAllProfile() {

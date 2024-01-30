@@ -50,13 +50,19 @@ public class ProfileServiceImpl implements ProfileService {
 				error.put("error", "Invalid phone number!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getFirstName().trim().matches("^[\\p{L}\\s]{5,50}$"))
-					|| !(profileDTO.getLastName().trim().matches("^[\\p{L}\\s]{5,50}$"))) {
+			if (!(profileDTO.getFirstName().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{5,50}$"))) {
 				Map<String, String> error = new HashMap<>();
-				error.put("error", "Invalid name!");
+				error.put("error", "Invalid first name!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getAddress().trim().matches("^[\\p{L}\\d\\s_]{5,100}$"))) {
+
+			if(!(profileDTO.getLastName().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{5,50}$"))){
+				Map<String, String> error = new HashMap<>();
+				error.put("error", "Invalid last name!");
+				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+			}
+
+			if (!(profileDTO.getAddress().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{5,100}$"))) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Invalid address!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -164,8 +170,8 @@ public class ProfileServiceImpl implements ProfileService {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
-@Override
-	public ResponseEntity<?> updateProfileByEmail(UpdateProfileDTO profileDTO) {
+	@Override
+	public ResponseEntity<?> updateProfileCVByEmail(UpdateProfileDTO profileDTO) {
 		String email = profileDTO.getEmail();
 		if (email == null) {
 			Map<String, String> error = new HashMap<>();
@@ -190,12 +196,6 @@ public class ProfileServiceImpl implements ProfileService {
 			if (cvFile != null && !cvFile.isEmpty()) {
 				profileToUpdate.setCV(cvFile.getBytes());
 			}
-
-			MultipartFile avatarFile = profileDTO.getAvatar();
-			if (avatarFile != null && !avatarFile.isEmpty()) {
-				profileToUpdate.setAvatar(avatarFile.getBytes());
-			}
-
 			profileRepo.save(profileToUpdate);
 
 			Map<String, Object> success = new HashMap<>();
@@ -208,6 +208,45 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 	}
 
+	@Override
+	public ResponseEntity<?> updateProfileAvatarByEmail(UpdateProfileDTO profileDTO) {
+		String email = profileDTO.getEmail();
+		if (email == null) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Email cannot be null");
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		Optional<Account> account = accountRepo.findFirstByEmail(email);
+		if (account.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Account not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(account.get().getId());
+		if (profileOptional.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Profile not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		Profile profileToUpdate = profileOptional.get();
+		try {
+
+			MultipartFile avatarFile = profileDTO.getAvatar();
+			if (avatarFile != null && !avatarFile.isEmpty()) {
+				profileToUpdate.setAvatar(avatarFile.getBytes());
+			}
+
+			profileRepo.save(profileToUpdate);
+
+			Map<String, Object> success = new HashMap<>();
+			success.put("success", "Profile updated successfully");
+			return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
+		}catch (IOException e) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Failed to update profile");
+			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 public ResponseEntity<?> getAllProfile() {
 		List<Profile> findAll = profileRepo.findAll();
 		List<ProfileDTO> dtos = new ArrayList<>();

@@ -11,6 +11,7 @@ public interface ProfileService {
 
 	public ResponseEntity<?> viewProfile(ProfileDTO profileDTO);
 	public ResponseEntity<?> viewProfileByEmail(AccountDTO emailDTO);
-    ResponseEntity<?> updateProfileByEmail(UpdateProfileDTO profileDTO);
+    ResponseEntity<?> updateProfileCVByEmail(UpdateProfileDTO profileDTO);
+    ResponseEntity<?> updateProfileAvatarByEmail(UpdateProfileDTO profileDTO);
 	public ResponseEntity<?> getAllProfile();
 }
