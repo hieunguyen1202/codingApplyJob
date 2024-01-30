@@ -1,5 +1,5 @@
 package com.swp.server.enums;
 
 public enum AccountRole {
-	ADMIN, JOBSEEKER
+	ADMIN, JOBSEEKER, SUPPORTER, EMPLOYER
 }
