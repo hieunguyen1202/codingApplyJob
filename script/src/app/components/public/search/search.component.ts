@@ -5,47 +5,50 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss'
+  styleUrl: './search.component.scss',
 })
-export class SearchComponent implements OnInit , OnDestroy{
-
+export class SearchComponent implements OnInit, OnDestroy {
   //form
-  searchForm !: FormGroup
+  searchForm!: FormGroup;
+  advancedSearch: boolean = false;
 
-  constructor(private fb : FormBuilder,private routes:ActivatedRoute){
+  constructor(private fb: FormBuilder, private routes: ActivatedRoute) {
     this.searchForm = fb.group({
-      textSearch : [''],
-      category : ["2"],
-      location : ["3"],
-      careerLevel : ["3"],
-      experience  : ["3"],
-      offerSalary : ["3"],
-      qualification : ["3"],
-    })
+      textSearch: [''],
+      category: ['2'],
+      location: ['3'],
+      careerLevel: ['3'],
+      experience: ['3'],
+      offerSalary: ['3'],
+      qualification: ['3'],
+    });
   }
   ngOnInit(): void {
-    this.routes.queryParams.subscribe(params=>{
+    this.routes.queryParams.subscribe((params) => {
       console.log('====================================');
-      console.log("params::",params);
+      console.log('params::', params);
       console.log('====================================');
-    })
+    });
   }
 
-  submitForm(){
+  advanced(){
+    this.advancedSearch = !this.advancedSearch
     console.log('====================================');
-    console.log("searchForm::",this.searchForm.value);
+    console.log(this.advancedSearch);
     console.log('====================================');
   }
 
-  ngOnDestroy(): void {
-  
+  submitForm() {
+    console.log('====================================');
+    console.log('searchForm::', this.searchForm.value);
+    console.log('====================================');
   }
-
 
   pageActive(pageActive: number): void {
     console.log('====================================');
-    console.log("pageActive::",pageActive);
+    console.log('pageActive::', pageActive);
     console.log('====================================');
   }
 
+  ngOnDestroy(): void {}
 }

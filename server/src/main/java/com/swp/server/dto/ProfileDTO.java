@@ -11,12 +11,9 @@ public class ProfileDTO {
     private boolean gender;
     private String address;
     private String phoneNumber;
-//    @Lob
-//    private byte[] CV;
+
     private MultipartFile CV;
 
-//    @Lob
-//    private byte[] avatar;
 
     private  MultipartFile avatar;
 
@@ -82,21 +79,21 @@ public class ProfileDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public MultipartFile getCV() {
-        return CV;
-    }
+	public MultipartFile getCV() {
+		return CV;
+	}
 
-    public void setCV(MultipartFile CV) {
-        this.CV = CV;
-    }
+	public void setCV(MultipartFile CV) {
+		this.CV = CV;
+	}
 
-    public MultipartFile getAvatar() {
-        return avatar;
-    }
+	public MultipartFile getAvatar() {
+		return avatar;
+	}
 
-    public void setAvatar(MultipartFile avatar) {
-        this.avatar = avatar;
-    }
+	public void setAvatar(MultipartFile avatar) {
+		this.avatar = avatar;
+	}
 
 
 }

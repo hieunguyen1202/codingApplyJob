@@ -11,4 +11,6 @@ public interface ProfileService {
 	public ResponseEntity<?> viewProfile(ProfileDTO profileDTO);
 
 	public ResponseEntity<?> viewProfileByEmail(AccountDTO emailDTO);
+
+	public ResponseEntity<?> getAllProfile();
 }

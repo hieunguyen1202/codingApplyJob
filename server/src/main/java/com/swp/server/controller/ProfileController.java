@@ -26,19 +26,6 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 public class ProfileController {
 
-//    public Resource loadFileAsResource(String fileName) {
-//        try {
-//            Resource resource = new UrlResource(fileName.toUri());
-//            if(resource.exists()) {
-//                return resource;
-//            } else {
-//                throw new MyFileNotFoundException("File not found " + fileName);
-//            }
-//        } catch (MalformedURLException ex) {
-//            throw new MyFileNotFoundException("File not found " + fileName, ex);
-//        }
-//    }
-
 	@Autowired
 	private ProfileRepo profileRepo;
 
@@ -60,6 +47,12 @@ public class ProfileController {
 	@PostMapping("/viewDetail")
 	public ResponseEntity<?> viewProfileByEmail(@RequestBody AccountDTO account) {
 		return profileService.viewProfileByEmail(account);
+	}
+
+	// view all profile
+	@GetMapping("/getAllProfile")
+	public ResponseEntity<?> getAllProfile() {
+		return profileService.getAllProfile();
 	}
 
 	// dowload cv
