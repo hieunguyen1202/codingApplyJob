@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Base64;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,19 +46,17 @@ public class ProfileServiceImpl implements ProfileService {
 				error.put("error", "Invalid phone number!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getFirstName().trim().matches("^[A-Za-z ]+$"))
-					|| !(profileDTO.getLastName().trim().matches("^[A-Za-z ]+$"))) {
+			if (!(profileDTO.getFirstName().trim().matches("^[\\p{L}\\s]{5,50}$"))
+					|| !(profileDTO.getLastName().trim().matches("^[\\p{L}\\s]{5,50}$"))) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Invalid name!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getAddress().trim().matches(
-					"^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$"))) {
+			if (!(profileDTO.getAddress().trim().matches("^[\\p{L}\\d\\s_]{5,100}$"))) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Invalid address!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-
 			if (findId.isEmpty()) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Account not found!");
@@ -68,9 +67,11 @@ public class ProfileServiceImpl implements ProfileService {
 			if (profileDTO.getAddress() != null) {
 				profileToUpdate.setAddress(profileDTO.getAddress());
 			}
+
 			if (profileDTO.getFirstName() != null) {
 				profileToUpdate.setFirstName(profileDTO.getFirstName());
 			}
+
 			if (profileDTO.getLastName() != null) {
 				profileToUpdate.setLastName(profileDTO.getLastName());
 			}
@@ -155,6 +156,51 @@ public class ProfileServiceImpl implements ProfileService {
 		Map<String, String> error = new HashMap<>();
 		error.put("error", "Profile not found!");
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+
+	@Override
+	public ResponseEntity<?> updateProfileByEmail(UpdateProfileDTO profileDTO) {
+		String email = profileDTO.getEmail();
+		if (email == null) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Email cannot be null");
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		Optional<Account> account = accountRepo.findFirstByEmail(email);
+		if (account.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Account not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(account.get().getId());
+		if (profileOptional.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Profile not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		Profile profileToUpdate = profileOptional.get();
+		try {
+			MultipartFile cvFile = profileDTO.getCV();
+			if (cvFile != null && !cvFile.isEmpty()) {
+				profileToUpdate.setCV(cvFile.getBytes());
+			}
+
+			MultipartFile avatarFile = profileDTO.getAvatar();
+			if (avatarFile != null && !avatarFile.isEmpty()) {
+				profileToUpdate.setAvatar(avatarFile.getBytes());
+			}
+
+			profileRepo.save(profileToUpdate);
+
+			Map<String, Object> success = new HashMap<>();
+			success.put("success", "Profile updated successfully");
+			return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
+		} catch (IOException e) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Failed to update profile");
+			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }
