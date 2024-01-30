@@ -59,7 +59,8 @@ public class ProfileController {
 	@GetMapping("/getAllProfile")
 	public ResponseEntity<?> getAllProfile() {
 		return profileService.getAllProfile();
-	}	// dowload cv
+	}	
+	// dowload cv
 	@GetMapping("/downloadFile/{accountId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String accountId, HttpServletRequest request) {
 		Optional<Profile> profile = profileRepo.findFirstByAccount_id(Integer.parseInt(accountId));
