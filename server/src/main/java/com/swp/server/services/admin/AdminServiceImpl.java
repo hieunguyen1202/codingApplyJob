@@ -7,11 +7,14 @@ import com.swp.server.dto.ResponseProfileDTO;
 import com.swp.server.entities.Account;
 import com.swp.server.entities.Profile;
 import com.swp.server.entities.Role;
+import com.swp.server.enums.AccountRole;
 import com.swp.server.repository.AccountRepo;
+import com.swp.server.repository.ProfileRepo;
 import com.swp.server.repository.RoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,8 @@ public class AdminServiceImpl implements AdminService{
     private RoleRepo roleRepo;
     @Autowired
     private AccountRepo accountRepo;
+    @Autowired
+    private ProfileRepo profileRepo;
     @Override
     public ResponseEntity<?> viewListAccounts() {
         try {
@@ -104,6 +109,11 @@ public class AdminServiceImpl implements AdminService{
                 error.put("error", "Role is not found !!!");
                 return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
             }
+            if(!(role.toUpperCase().equals(AccountRole.EMPLOYER.toString()) || (role.toUpperCase().equals(AccountRole.SUPPORTER.toString())))){
+                Map<String, String> error = new HashMap<String, String>();
+                error.put("error", "Role is not accepted !!!");
+                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+            }
 
             Account newAccountEntity = new Account();
             newAccountEntity.setUsername(createAccountDTO.getUsername());
@@ -113,8 +123,10 @@ public class AdminServiceImpl implements AdminService{
             newAccountEntity.setEnabled(true);
             newAccountEntity.setRole(roleEntity);
 
+            Profile profile = new Profile();
+            profile.setAccount(newAccountEntity);
             Account newAccount = accountRepo.save(newAccountEntity);
-
+            Profile newProfile = profileRepo.save(profile);
             Map<String, String> success = new HashMap<String, String>();
             success.put("success", "Sign up successfully !!!");
             return new ResponseEntity<>(success, HttpStatus.OK);
@@ -135,6 +147,11 @@ public class AdminServiceImpl implements AdminService{
                 return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
             }
             Account blockAccount = checkEmailExisted.get();
+            if(blockAccount.getRole().getName().toUpperCase().equals(AccountRole.ADMIN.toString())){
+                Map<String, String> error = new HashMap<String, String>();
+                error.put("error", "Request is not accepted  !!!");
+                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+            }
             if(!blockAccountDTO.isEnabled()){
                 blockAccount.setEnabled(false);
                 accountRepo.save(blockAccount);
