@@ -41,7 +41,6 @@ public class ProfileServiceImpl implements ProfileService {
 //                error.put("error", "Phone number is already registered!");
 //                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 //            }
-//
 			String phoneNumberRegex = "^(\\+84|0)(3[2-9]|5[2689]|7[06-9]|8[1-689]|9[0-9])\\d{7}$";
 			Pattern patternPhone = Pattern.compile(phoneNumberRegex);
 			Matcher matcherPhone = patternPhone.matcher(profileDTO.getPhoneNumber());
@@ -50,15 +49,20 @@ public class ProfileServiceImpl implements ProfileService {
 				error.put("error", "Invalid phone number!");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getFirstName().trim().matches("^[\\p{L}\\s]{5,50}$"))
-					|| !(profileDTO.getLastName().trim().matches("^[\\p{L}\\s]{5,50}$"))) {
+			if (!(profileDTO.getFirstName().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{1,50}$"))) {
 				Map<String, String> error = new HashMap<>();
-				error.put("error", "Invalid name!");
+				error.put("error", "Invalid first name! Please enter more than one character.");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getAddress().trim().matches("^[\\p{L}\\d\\s_]{5,100}$"))) {
+
+			if(!(profileDTO.getLastName().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{1,50}$"))){
 				Map<String, String> error = new HashMap<>();
-				error.put("error", "Invalid address!");
+				error.put("error", "Invalid last name! Please enter more than one character.");
+				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+			}
+			if (!(profileDTO.getAddress().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{5,100}$"))) {
+				Map<String, String> error = new HashMap<>();
+				error.put("error", "Invalid address! Please enter more than five characters.");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
 			if (findId.isEmpty()) {
@@ -71,11 +75,9 @@ public class ProfileServiceImpl implements ProfileService {
 			if (profileDTO.getAddress() != null) {
 				profileToUpdate.setAddress(profileDTO.getAddress());
 			}
-
 			if (profileDTO.getFirstName() != null) {
 				profileToUpdate.setFirstName(profileDTO.getFirstName());
 			}
-
 			if (profileDTO.getLastName() != null) {
 				profileToUpdate.setLastName(profileDTO.getLastName());
 			}
@@ -83,13 +85,11 @@ public class ProfileServiceImpl implements ProfileService {
 			profileToUpdate.setGender(profileDTO.isGender());
 			if (profileDTO.getPhoneNumber() != null) {
 				profileToUpdate.setPhoneNumber(profileDTO.getPhoneNumber());
-
 			}
 			// Check if avatar is provided
 			if (profileDTO.getAvatar() != null && !profileDTO.getAvatar().isEmpty()) {
 				profileToUpdate.setAvatar(profileDTO.getAvatar().getBytes());
 			}
-
 			// Check if CV is provided
 			if (profileDTO.getCV() != null && !profileDTO.getCV().isEmpty()) {
 				profileToUpdate.setCV(profileDTO.getCV().getBytes());
@@ -164,8 +164,8 @@ public class ProfileServiceImpl implements ProfileService {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
-@Override
-	public ResponseEntity<?> updateProfileByEmail(UpdateProfileDTO profileDTO) {
+	@Override
+	public ResponseEntity<?> updateProfileCVByEmail(UpdateProfileDTO profileDTO) {
 		String email = profileDTO.getEmail();
 		if (email == null) {
 			Map<String, String> error = new HashMap<>();
@@ -190,12 +190,6 @@ public class ProfileServiceImpl implements ProfileService {
 			if (cvFile != null && !cvFile.isEmpty()) {
 				profileToUpdate.setCV(cvFile.getBytes());
 			}
-
-			MultipartFile avatarFile = profileDTO.getAvatar();
-			if (avatarFile != null && !avatarFile.isEmpty()) {
-				profileToUpdate.setAvatar(avatarFile.getBytes());
-			}
-
 			profileRepo.save(profileToUpdate);
 
 			Map<String, Object> success = new HashMap<>();
@@ -208,6 +202,45 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 	}
 
+	@Override
+	public ResponseEntity<?> updateProfileAvatarByEmail(UpdateProfileDTO profileDTO) {
+		String email = profileDTO.getEmail();
+		if (email == null) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Email cannot be null");
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		Optional<Account> account = accountRepo.findFirstByEmail(email);
+		if (account.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Account not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		Optional<Profile> profileOptional = profileRepo.findFirstByAccount_id(account.get().getId());
+		if (profileOptional.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Profile not found");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		Profile profileToUpdate = profileOptional.get();
+		try {
+
+			MultipartFile avatarFile = profileDTO.getAvatar();
+			if (avatarFile != null && !avatarFile.isEmpty()) {
+				profileToUpdate.setAvatar(avatarFile.getBytes());
+			}
+
+			profileRepo.save(profileToUpdate);
+
+			Map<String, Object> success = new HashMap<>();
+			success.put("success", "Profile updated successfully");
+			return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
+		}catch (IOException e) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Failed to update profile");
+			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 public ResponseEntity<?> getAllProfile() {
 		List<Profile> findAll = profileRepo.findAll();
 		List<ProfileDTO> dtos = new ArrayList<>();
