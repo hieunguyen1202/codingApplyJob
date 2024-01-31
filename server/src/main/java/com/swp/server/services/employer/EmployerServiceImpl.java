@@ -5,6 +5,7 @@ import com.swp.server.dto.ResponseProfileDTO;
 import com.swp.server.dto.ViewProfileDTO;
 import com.swp.server.entities.Account;
 import com.swp.server.entities.Profile;
+import com.swp.server.enums.AccountRole;
 import com.swp.server.repository.AccountRepo;
 import com.swp.server.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class EmployerServiceImpl implements EmployerService{
                 return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
             }
             Account account = checkEmailExisted.get();
+            if(!account.getRole().getName().equals(AccountRole.JOBSEEKER.toString())){
+                Map<String, String> error = new HashMap<String, String>();
+                error.put("error", "Request is not accepted  !!!");
+                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+            }
             Profile profile = account.getProfile();
             if (profile == null) {
                 Map<String, String> error = new HashMap<>();
