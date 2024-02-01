@@ -60,7 +60,7 @@ public class ProfileServiceImpl implements ProfileService {
 				error.put("error", "Invalid last name! Please enter more than one character.");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
-			if (!(profileDTO.getAddress().trim().matches("^(?![-,])[\\p{IsHani}\\p{IsLatin}\\s,-]{5,100}$"))) {
+			if (!(profileDTO.getAddress().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{5,100}$"))) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Invalid address! Please enter more than five characters.");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -241,7 +241,7 @@ public class ProfileServiceImpl implements ProfileService {
 			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	public ResponseEntity<?> getAllProfile() {
+public ResponseEntity<?> getAllProfile() {
 		List<Profile> findAll = profileRepo.findAll();
 		List<ProfileDTO> dtos = new ArrayList<>();
 
