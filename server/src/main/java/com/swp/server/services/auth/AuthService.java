@@ -8,6 +8,7 @@ import com.swp.server.dto.LoginDTO;
 import com.swp.server.dto.OTPCodeAndEmailDTO;
 import com.swp.server.dto.ReceiverOtpCode;
 import com.swp.server.dto.SignUpDTO;
+import com.swp.server.dto.UpdateUsernameDTO;
 import com.swp.server.entities.Account;
 
 public interface AuthService {
@@ -24,5 +25,7 @@ public interface AuthService {
 	public ResponseEntity<?> verifyAccount(OTPCodeAndEmailDTO codeAndEmailDTO);
 
 	public ResponseEntity<?> findAccountByEmail(EmailDTO emailDTO);
+
+	public ResponseEntity<?> updateUserName(UpdateUsernameDTO updateUsernameDTO);
 
 }

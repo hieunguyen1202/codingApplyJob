@@ -29,7 +29,8 @@ public class WebSecurityConfiguration {
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	private static final String[] PUBLIC_URL = { "/api/v1/auth/**", "/v3/api-docs/**", "/v3/api-docs.yaml",
-			"/swagger-ui/**", "/swagger-ui.html", "/chat", "/product", "/product/**", "/api/chatbox/**","/update-cv/**", "/api/test/**"  };
+			"/swagger-ui/**", "/swagger-ui.html", "/chat", "/product", "/product/**", "/api/chatbox/**",
+			"/update-cv/**", "/api/test/**", "/api/profile/**" };
 
 	@Autowired
 	private UserService userService;
@@ -38,6 +39,9 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**").permitAll()
+//						.requestMatchers("/api/auth/profile")
+//						.hasAnyAuthority(AccountRole.ADMIN.name(), AccountRole.EMPLOYER.name(),
+//								AccountRole.JOBSEEKER.name(), AccountRole.SUPPORTER.name())
 						.requestMatchers(PUBLIC_URL).permitAll().requestMatchers("/api/admin/**")
 						.hasAnyAuthority(AccountRole.ADMIN.name()).anyRequest().authenticated())
 				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -1,4 +1,4 @@
-package com.swp.server.services.auth;
+package com.swp.server.services.profile;
 
 import com.swp.server.dto.*;
 import com.swp.server.entities.Profile;
@@ -55,7 +55,7 @@ public class ProfileServiceImpl implements ProfileService {
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
 
-			if(!(profileDTO.getLastName().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{1,50}$"))){
+			if (!(profileDTO.getLastName().trim().matches("^[\\p{IsHani}\\p{IsLatin}\\s]{1,50}$"))) {
 				Map<String, String> error = new HashMap<>();
 				error.put("error", "Invalid last name! Please enter more than one character.");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -105,38 +105,6 @@ public class ProfileServiceImpl implements ProfileService {
 			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-	}
-
-	@Override
-	public ResponseEntity<?> viewProfile(ProfileDTO profileDTO) {
-
-		Optional<Account> findAccountByEmail = accountRepo.findFirstByEmail(profileDTO.getEmail());
-		Account account = findAccountByEmail.get();
-		Optional<Profile> findId = profileRepo.findFirstByAccount_id(account.getId());
-
-		if (findId.isEmpty()) {
-			Map<String, String> error = new HashMap<>();
-			error.put("error", "Account not found!");
-			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-		}
-		Profile profileEntity = account.getProfile();
-
-		if (profileEntity == null) {
-			Map<String, String> error = new HashMap<>();
-			error.put("error", "Profile not found!");
-			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-		}
-
-		ProfileDTO responseDTO = new ProfileDTO();
-		responseDTO.setFirstName(profileEntity.getFirstName());
-		responseDTO.setLastName(profileEntity.getLastName());
-		responseDTO.setPhoneNumber(profileEntity.getPhoneNumber());
-		responseDTO.setAddress(profileEntity.getAddress());
-		responseDTO.setGender(profileEntity.isGender());
-//        responseDTO.setCV(new String(Base64.getEncoder().encode(profileEntity.getCV())));
-//        responseDTO.setAvatar(Base64.getEncoder().encodeToString(profileEntity.getAvatar()));
-
-		return ResponseEntity.ok(responseDTO);
 	}
 
 	@Override
@@ -235,32 +203,10 @@ public class ProfileServiceImpl implements ProfileService {
 			Map<String, Object> success = new HashMap<>();
 			success.put("success", "Profile updated successfully");
 			return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
-		}catch (IOException e) {
+		} catch (IOException e) {
 			Map<String, String> error = new HashMap<>();
 			error.put("error", "Failed to update profile");
 			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-public ResponseEntity<?> getAllProfile() {
-		List<Profile> findAll = profileRepo.findAll();
-		List<ProfileDTO> dtos = new ArrayList<>();
-
-		if (!findAll.isEmpty()) {
-
-			for (Profile profile : findAll) {
-				ProfileDTO profileDTO = new ProfileDTO();
-				profileDTO.setFirstName(profile.getFirstName());
-				profileDTO.setLastName(profile.getLastName());
-				dtos.add(profileDTO);
-			}
-
-			Map<String, Object> success = new HashMap<String, Object>();
-			success.put("success", "Get profiles successfully!");
-			success.put("metadata", dtos);
-			return ResponseEntity.ok(success);
-		} else {
-			Map<String, String> info = new HashMap<>();
-			info.put("info", "No profiles found.");
-			return ResponseEntity.ok(info);
-		}
-	}}
+}

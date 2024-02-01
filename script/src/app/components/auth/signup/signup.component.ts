@@ -11,7 +11,7 @@ import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { PublicService } from '../../../services/public/public.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { error } from 'console';
-import { SignUp } from '../../../models/signup.model';
+import { SignUp } from '../../../types/signup.type';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

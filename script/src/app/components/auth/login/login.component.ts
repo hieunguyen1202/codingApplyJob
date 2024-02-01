@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { PublicService } from '../../../services/public/public.service';
 import { hostname } from 'os';
-import { Login } from '../../../models/login.model';
+import { Login } from '../../../types/login.type';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { error } from 'console';
 import { StorageService } from '../../../services/storage/storage.service';

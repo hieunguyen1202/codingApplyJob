@@ -36,6 +36,7 @@ import com.swp.server.dto.OTPCodeAndEmailDTO;
 import com.swp.server.dto.ReceiverOtpCode;
 import com.swp.server.dto.ResponseLogin;
 import com.swp.server.dto.SignUpDTO;
+import com.swp.server.dto.UpdateUsernameDTO;
 import com.swp.server.entities.Account;
 import com.swp.server.entities.Profile;
 import com.swp.server.entities.Role;
@@ -352,11 +353,34 @@ public class AuthServiceImpl implements AuthService {
 			AccountDTO accountDTO = new AccountDTO();
 			accountDTO.setId(account.get().getId());
 			accountDTO.setVerified(account.get().isVerify());
+			accountDTO.setUsername(account.get().getUsername());
 			Map<String, Object> success = new HashMap<>();
 			success.put("success", "Get account successfully !!!");
 			success.put("metadata", accountDTO);
 			return ResponseEntity.ok(success);
 
+		}
+		Map<String, Object> error = new HashMap<>();
+		error.put("error", "Not found account !!!");
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+
+	}
+
+	@Override
+	public ResponseEntity<?> updateUserName(UpdateUsernameDTO updateUsernameDTO) {
+		Optional<Account> account = accountRepo.findFirstByEmail(updateUsernameDTO.getEmail());
+		if (account.isPresent()) {
+			account.get().setUsername(updateUsernameDTO.getUsername());
+			Account updateAccount = accountRepo.save(account.get());
+			if (updateAccount != null) {
+				Map<String, Object> success = new HashMap<>();
+				success.put("success", "Update account successfully !!!");
+				return ResponseEntity.ok(success);
+			} else {
+				Map<String, Object> error = new HashMap<>();
+				error.put("error", "Error when updated account !!!");
+				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+			}
 		}
 		Map<String, Object> error = new HashMap<>();
 		error.put("error", "Not found account !!!");
