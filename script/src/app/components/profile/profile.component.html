@@ -9,88 +9,157 @@
       <div class="w-full my-auto flex items-center justify-center gap-5 mb-20">
         <!-- left -->
         <div class="w-1/2 flex flex-col gap-8">
-          <nz-spin
-            [nzSpinning]="isSpinningUpdateInfo"
-            [nzSize]="'large'"
-            nzTip="Đang cập nhập..."
-          >
-            <form [formGroup]="formProfile" class="my-auto">
-              <div class="w-full shadow-2xl p-5 rounded-md">
-                <div class="font-bold text-2xl mb-8">
-                  Cài đặt thông tin cá nhân
-                </div>
-
-                <div class="mb-7">
-                  <label for="firstName">Tên</label>
-                  <br />
-
-                  <input
-                    class="rounded-md outline-none border w-full py-2"
-                    id="firstName"
-                    formControlName="firstName"
-                    type="text"
-                    placeholder="Điền tên của bạn..."
-                  />
-                </div>
-
-                <div class="mb-7">
-                  <label for="lastName">Họ</label>
-                  <br />
-                  <input
-                    class="rounded-md outline-none border w-full py-2"
-                    id="lastName"
-                    formControlName="lastName"
-                    type="text"
-                    placeholder="Điền họ của bạn..."
-                  />
-                </div>
-
-                <div class="mb-7">
-                  <label for="phoneNumber">Số điện thoại</label>
-                  <br />
-                  <input
-                    class="rounded-md outline-none border w-full py-2"
-                    id="phoneNumber"
-                    placeholder="Điền số điện thoại của bạn"
-                    formControlName="phoneNumber"
-                    type="number"
-                  />
-                </div>
-
-                <div class="mb-7">
-                  <label for="gender">Giới tính</label>
-                  <br />
-                  <nz-radio-group
-                    formControlName="gender"
-                    nzButtonStyle="solid"
-                  >
-                    <label nz-radio-button [nzValue]="true">Trai</label>
-                    <label nz-radio-button [nzValue]="false">Gái</label>
-                  </nz-radio-group>
-                </div>
-                <div class="mb-7">
-                  <label for="address">Địa chỉ</label>
-                  <br />
-                  <input
-                    class="rounded-md outline-none border w-full py-2"
-                    placeholder="Điền địa chỉ của bạn"
-                    id="address"
-                    type="text"
-                    formControlName="address"
-                  />
-                </div>
-
-                <div>
-                  <button
-                    class="text-white rounded-md font-semibold p-2 bg-green-700 hover:bg-green-500"
-                    (click)="onUpdateProfile()"
-                  >
-                    Cập nhật
-                  </button>
-                </div>
+          <div class="my-auto">
+            <div class="w-full shadow-2xl p-5 rounded-md">
+              <div class="font-bold text-2xl mb-8">
+                Cài đặt thông tin cá nhân
               </div>
-            </form>
-          </nz-spin>
+
+              <div class="mb-7">
+                <label for="firstName">Tên</label>
+                <br />
+
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  [value]="user?.firstName"
+                  disabled
+                />
+              </div>
+
+              <div class="mb-7">
+                <label for="lastName">Họ</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  [value]="user?.lastName"
+                  disabled
+                />
+              </div>
+
+              <div class="mb-7">
+                <label for="phoneNumber">Số điện thoại</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  [value]="user?.phoneNumber"
+                  disabled
+                />
+              </div>
+
+              <div class="mb-7">
+                <label for="gender">Giới tính</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  [value]="gender === true ? 'Nam' : 'Nữ'"
+                  disabled
+                />
+              </div>
+              <div class="mb-7">
+                <label for="address">Địa chỉ</label>
+                <br />
+                <input
+                  class="rounded-md outline-none border w-full py-2"
+                  [value]="user?.address"
+                  disabled
+                />
+              </div>
+              <div>
+                <button nz-button nzType="primary" (click)="showModal()">
+                  Chỉnh sửa
+                </button>
+              </div>
+            </div>
+          </div>
+          <nz-modal
+            [(nzVisible)]="isVisible"
+            nzTitle="Chỉnh sửa hồ sơ cá nhân"
+            nzOkText="Cập nhập"
+            nzCancelText="Hủy"
+            (nzOnOk)="handleOk()"
+            (nzOnCancel)="handleCancel()"
+          >
+            <ng-container *nzModalContent>
+              <nz-spin
+                [nzSpinning]="isSpinningUpdateInfo"
+                [nzSize]="'large'"
+                nzTip="Đang cập nhập..."
+              >
+                <form [formGroup]="formProfile" class="my-auto">
+                  <div>
+                    <div class="mb-7">
+                      <label for="firstName">Tên</label>
+                      <br />
+
+                      <input
+                        class="rounded-md outline-none border w-full py-2"
+                        id="firstName"
+                        formControlName="firstName"
+                        type="text"
+                        placeholder="Điền tên của bạn..."
+                      />
+                    </div>
+
+                    <div class="mb-7">
+                      <label for="lastName">Họ</label>
+                      <br />
+                      <input
+                        class="rounded-md outline-none border w-full py-2"
+                        id="lastName"
+                        formControlName="lastName"
+                        type="text"
+                        placeholder="Điền họ của bạn..."
+                      />
+                    </div>
+
+                    <div class="mb-7">
+                      <label for="phoneNumber">Số điện thoại</label>
+                      <br />
+                      <input
+                        class="rounded-md outline-none border w-full py-2"
+                        id="phoneNumber"
+                        placeholder="Điền số điện thoại của bạn"
+                        formControlName="phoneNumber"
+                        type="text"
+                      />
+                    </div>
+
+                    <div class="mb-7">
+                      <label for="gender">Giới tính</label>
+                      <br />
+                      <nz-radio-group
+                        formControlName="gender"
+                        nzButtonStyle="solid"
+                      >
+                        <label nz-radio-button [nzValue]="true">Nam</label>
+                        <label nz-radio-button [nzValue]="false">Nữ</label>
+                      </nz-radio-group>
+                    </div>
+                    <div class="mb-7">
+                      <label for="address">Địa chỉ</label>
+                      <br />
+                      <input
+                        class="rounded-md outline-none border w-full py-2"
+                        placeholder="Điền địa chỉ của bạn"
+                        id="address"
+                        type="text"
+                        formControlName="address"
+                      />
+                    </div>
+
+                    <!-- <div>
+                    <button
+                      class="text-white rounded-md font-semibold p-2 bg-green-700 hover:bg-green-500"
+                      (click)="onUpdateProfile()"
+                    >
+                      Cập nhật
+                    </button>
+                  </div> -->
+                  </div>
+                </form>
+              </nz-spin>
+            </ng-container>
+          </nz-modal>
         </div>
 
         <!-- right -->

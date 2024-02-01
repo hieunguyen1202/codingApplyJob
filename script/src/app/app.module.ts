@@ -30,6 +30,8 @@ import { ToastModule } from 'primeng/toast';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { BadgeModule } from 'primeng/badge';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+
 //module prime
 import { TooltipModule } from 'primeng/tooltip';
 import { DetailComponent } from './components/public/detail/detail.component';
@@ -74,6 +76,7 @@ registerLocaleData(en);
     NzPopoverModule,
     MegaMenuModule,
     BadgeModule,
+    NzModalModule,
     StoreModule.forRoot({ storeUser: storeUserReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { storeUser } from '../../shared/login.action';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -19,10 +20,13 @@ export class ProfileComponent implements OnInit {
   isSpinningUpdateInfo: boolean = false;
   formProfile!: FormGroup;
   user: any;
+  isVisible = false;
   isSpinning: boolean = false;
   checkUserVerify: any;
   email: string = StorageService.getEmail();
+  gender!: boolean;
   constructor(
+    private modalService: NzModalService,
     private fb: FormBuilder,
     private messageService: MessageService,
     private store: Store<{ user: any }>,
@@ -45,6 +49,7 @@ export class ProfileComponent implements OnInit {
           });
       }
       this.user = res;
+      this.gender = res?.gender;
       this.initializeForm();
     });
   }
@@ -60,60 +65,6 @@ export class ProfileComponent implements OnInit {
       ],
       address: [this.user?.address || '', Validators.required],
     });
-  }
-
-  onUpdateProfile() {
-    this.isSpinningUpdateInfo = true;
-    console.log('formProfile::', this.formProfile.value);
-    const formData = new FormData();
-    formData.append('email', StorageService.getEmail());
-    formData.append('firstName', this.formProfile.value['firstName']);
-    formData.append('lastName', this.formProfile.value['lastName']);
-    formData.append('gender', this.formProfile.value['gender']);
-    formData.append('phoneNumber', `${this.formProfile.value['phoneNumber']}`);
-    formData.append('address', this.formProfile.value['address']);
-
-    this.profileService.updateProfileByEmail(formData).subscribe(
-      (res) => {
-        this.msg.success('Cập nhập profile thành công');
-        this.profileService.findAccountByEmail({ email: this.email }).subscribe(
-          (res) => {
-            this.profileService
-              .viewProfileByEmail({ id: res.metadata.id })
-              .subscribe(
-                (res) => {
-                  this.store.dispatch(storeUser({ user: res.metadata }));
-                  this.isSpinningUpdateInfo = false;
-                },
-                (error) => {
-                  this.isSpinningUpdateInfo = false;
-
-                  this.msg.error('Cập nhập profile không thành công', {
-                    nzDuration: 2000,
-                  });
-                }
-              );
-          },
-          (error) => {
-            this.isSpinningUpdateInfo = false;
-
-            this.msg.error('Cập nhập profile không thành công', {
-              nzDuration: 2000,
-            });
-          }
-        );
-      },
-      (error) => {
-        this.isSpinningUpdateInfo = false;
-        if (error?.error?.error) {
-          this.msg.error(error?.error?.error, { nzDuration: 2000 });
-        } else {
-          this.msg.error('Cập nhập profile không thành công', {
-            nzDuration: 2000,
-          });
-        }
-      }
-    );
   }
 
   onUpload(event: UploadEvent) {
@@ -146,5 +97,68 @@ export class ProfileComponent implements OnInit {
           }
         }
       );
+  }
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isSpinningUpdateInfo = true;
+    console.log('formProfile::', this.formProfile.value);
+    const formData = new FormData();
+    formData.append('email', StorageService.getEmail());
+    formData.append('firstName', this.formProfile.value['firstName']);
+    formData.append('lastName', this.formProfile.value['lastName']);
+    formData.append('gender', this.formProfile.value['gender']);
+    formData.append('phoneNumber', `${this.formProfile.value['phoneNumber']}`);
+    formData.append('address', this.formProfile.value['address']);
+
+    this.profileService.updateProfileByEmail(formData).subscribe(
+      (res) => {
+        this.msg.success('Cập nhập profile thành công');
+        this.profileService.findAccountByEmail({ email: this.email }).subscribe(
+          (res) => {
+            this.profileService
+              .viewProfileByEmail({ id: res.metadata.id })
+              .subscribe(
+                (res) => {
+                  this.store.dispatch(storeUser({ user: res.metadata }));
+                  this.isSpinningUpdateInfo = false;
+                  this.handleCancel();
+                },
+                (error) => {
+                  this.isSpinningUpdateInfo = false;
+
+                  this.msg.error('Cập nhập profile không thành công', {
+                    nzDuration: 2000,
+                  });
+                }
+              );
+          },
+          (error) => {
+            this.isSpinningUpdateInfo = false;
+
+            this.msg.error('Cập nhập profile không thành công', {
+              nzDuration: 2000,
+            });
+          }
+        );
+      },
+      (error) => {
+        this.isSpinningUpdateInfo = false;
+        if (error?.error?.error) {
+          this.msg.error(error?.error?.error, { nzDuration: 2000 });
+        } else {
+          this.msg.error('Cập nhập profile không thành công', {
+            nzDuration: 2000,
+          });
+        }
+      }
+    );
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 }
