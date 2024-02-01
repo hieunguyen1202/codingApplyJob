@@ -1,4 +1,4 @@
-package com.swp.server.services.auth;
+package com.swp.server.services.profile;
 
 import com.swp.server.dto.AccountDTO;
 
@@ -8,11 +8,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProfileService {
 	public ResponseEntity<?> createProfile(ProfileDTO profileDTO);
-
-	public ResponseEntity<?> viewProfile(ProfileDTO profileDTO);
 	public ResponseEntity<?> viewProfileByEmail(AccountDTO emailDTO);
     ResponseEntity<?> updateProfileCVByEmail(UpdateProfileDTO profileDTO);
     ResponseEntity<?> updateProfileAvatarByEmail(UpdateProfileDTO profileDTO);
-	public ResponseEntity<?> getAllProfile();
+
 
 }

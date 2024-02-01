@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import com.swp.server.dto.LoginDTO;
 import com.swp.server.dto.OTPCodeAndEmailDTO;
 import com.swp.server.dto.ReceiverOtpCode;
 import com.swp.server.dto.SignUpDTO;
+import com.swp.server.dto.UpdateUsernameDTO;
 import com.swp.server.services.auth.AuthService;
 
 @RestController
@@ -55,6 +57,12 @@ public class AuthController {
 	@PostMapping("/findEmail")
 	public ResponseEntity<?> findAccountByEmail(@RequestBody EmailDTO emailDTO) {
 		return authService.findAccountByEmail(emailDTO);
+	}
+
+	// update username
+	@PutMapping("/updateUsername")
+	public ResponseEntity<?> updateUserName(@RequestBody UpdateUsernameDTO updateUsernameDTO) {
+		return authService.updateUserName(updateUsernameDTO);
 	}
 
 }

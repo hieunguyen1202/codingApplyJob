@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SignUp } from '../../models/signup.model';
-import {Login} from '../../models/login.model'
+import { SignUp } from '../../types/signup.type';
+import {Login} from '../../types/login.type'
 import { Observable } from 'rxjs';
 const BASIC_URL = ['http://localhost:8081/'];
 
