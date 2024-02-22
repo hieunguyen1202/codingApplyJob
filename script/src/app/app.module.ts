@@ -42,6 +42,11 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeUserReducer } from './shared/login.reducer';
 import { VerifyAccountComponent } from './components/auth/verify-account/verify-account.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { ManageJobComponent } from './components/admin/manage-job/manage-job.component';
+import { PedingApproveJobComponent } from './components/admin/peding-approve-job/peding-approve-job.component';
+import { RefuseApproveJobComponent } from './components/admin/refuse-approve-job/refuse-approve-job.component';
+import { ApproveJobComponent } from './components/admin/approve-job/approve-job.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -56,6 +61,11 @@ registerLocaleData(en);
     BranchDetailComponent,
     ProfileComponent,
     VerifyAccountComponent,
+    DashboardComponent,
+    ManageJobComponent,
+    PedingApproveJobComponent,
+    RefuseApproveJobComponent,
+    ApproveJobComponent,
   ],
   imports: [
     BrowserModule,
