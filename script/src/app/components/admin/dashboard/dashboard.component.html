@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+<div class="pt-20 flex">
+  <div class="wrapper h-screen" style="background-color: #08142c">
+    <ul
+      nz-menu
+      nzMode="inline"
+      nzTheme="dark"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li
+        nz-menu-item
+        nz-tooltip
+        nzTooltipPlacement="right"
+        nzTooltipTitle="Quản lí công việc"
+        nzSelected
+      >
+        <span nz-icon nzType="form" nzTheme="outline"></span>
+        <span (click)="manageJob()">Quản lí công việc</span>
+      </li>
+      <li
+        nz-submenu
+        nzTitle="Các đơn ứng tuyển cần xử lí"
+        nz-tooltip=""
+        nzTooltipTitle="Các đơn ứng tuyển cần xử lí"
+        nzIcon="appstore"
+      >
+        <ul>
+          <li nz-menu-item (click)="pendingJob()">Các đơn đang chờ xử lí</li>
+          <li nz-menu-item (click)="approveJob()">Các đơn đã duyệt</li>
+          <li nz-menu-item (click)="refuseJob()">Các đơn từ chối</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex-grow" *ngIf="defaultComponent === manage_job">
+    <app-manage-job></app-manage-job>
+  </div>
+  <div class="flex-grow" *ngIf="defaultComponent === approve_job">
+    <app-approve-job></app-approve-job>
+  </div>
+  <div class="flex-grow" *ngIf="defaultComponent === pending_job">
+    <app-peding-approve-job></app-peding-approve-job>
+  </div>
+  <div class="flex-grow" *ngIf="defaultComponent === refuse_job">
+    <app-refuse-approve-job></app-refuse-approve-job>
+  </div>
+</div>

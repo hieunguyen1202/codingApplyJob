@@ -9,6 +9,7 @@ import { BranchDetailComponent } from './components/public/branch-detail/branch-
 
 import { ProfileComponent } from './components/profile/profile.component';
 import { VerifyAccountComponent } from './components/auth/verify-account/verify-account.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 
 // const AuthGuard = ():boolean =>{
 //   return true
@@ -22,9 +23,8 @@ const routes: Routes = [
   { path: 'detail/:jobId',component: DetailComponent },
   { path: 'branch/:branchId',component: BranchDetailComponent },
   { path: 'profile',component: ProfileComponent},
-  { path: 'verifyAccount',component: VerifyAccountComponent}
-
-
+  { path: 'verifyAccount',component: VerifyAccountComponent},
+  { path: 'dashboard',component: DashboardComponent}
 ];
 
 @NgModule({
