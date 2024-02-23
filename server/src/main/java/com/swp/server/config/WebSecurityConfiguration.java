@@ -30,7 +30,7 @@ public class WebSecurityConfiguration {
 
 	private static final String[] PUBLIC_URL = { "/api/v1/auth/**", "/v3/api-docs/**", "/v3/api-docs.yaml",
 			"/swagger-ui/**", "/swagger-ui.html", "/chat", "/product", "/product/**", "/api/chatbox/**",
-			"/update-cv/**", "/api/test/**", "/api/profile/**" };
+			"/update-cv/**", "/api/test/**", "/api/profile/**", "/api/job/**" };
 
 	@Autowired
 	private UserService userService;

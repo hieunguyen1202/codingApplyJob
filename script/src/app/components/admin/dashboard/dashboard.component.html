@@ -1,21 +1,36 @@
 <app-navbar></app-navbar>
 <div class="pt-20 flex">
-  <div class="wrapper h-screen" style="background-color: #08142c">
-    <ul
+  <div class="wrapper">
+    <ul 
+      class="min-h-screen h-full"
       nz-menu
       nzMode="inline"
-      nzTheme="dark"
+      nzTheme="light"
       [nzInlineCollapsed]="isCollapsed"
     >
       <li
-        nz-menu-item
-        nz-tooltip
-        nzTooltipPlacement="right"
-        nzTooltipTitle="Quản lí công việc"
-        nzSelected
+        nz-submenu
+        nzTitle="Quản lí công việc"
+        nzIcon="form"
       >
-        <span nz-icon nzType="form" nzTheme="outline"></span>
-        <span (click)="manageJob()">Quản lí công việc</span>
+        <ul>
+          <li
+            nz-menu-item
+            nz-tooltip=""
+            nzTooltipTitle="Các chuyên ngành công việc của công ty"
+            (click)="jobCategory($event)"
+          >
+            Các chuyên ngành công việc của công ty
+          </li>
+          <li
+            nz-menu-item
+            nz-tooltip=""
+            nzTooltipTitle="Các công việc đã đăng tuyển"
+            (click)="manageJob($event)"
+          >
+            Các công việc đã đăng tuyển
+          </li>
+        </ul>
       </li>
       <li
         nz-submenu
@@ -25,9 +40,11 @@
         nzIcon="appstore"
       >
         <ul>
-          <li nz-menu-item (click)="pendingJob()">Các đơn đang chờ xử lí</li>
-          <li nz-menu-item (click)="approveJob()">Các đơn đã duyệt</li>
-          <li nz-menu-item (click)="refuseJob()">Các đơn từ chối</li>
+          <li nz-menu-item (click)="pendingJob($event)">
+            Các đơn đang chờ xử lí
+          </li>
+          <li nz-menu-item (click)="approveJob($event)">Các đơn đã duyệt</li>
+          <li nz-menu-item (click)="refuseJob($event)">Các đơn từ chối</li>
         </ul>
       </li>
     </ul>
@@ -35,6 +52,9 @@
 
   <div class="flex-grow" *ngIf="defaultComponent === manage_job">
     <app-manage-job></app-manage-job>
+  </div>
+  <div class="flex-grow" *ngIf="defaultComponent === job_category">
+    <app-job-category></app-job-category>
   </div>
   <div class="flex-grow" *ngIf="defaultComponent === approve_job">
     <app-approve-job></app-approve-job>

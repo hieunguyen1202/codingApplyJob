@@ -1,6 +1,8 @@
 package com.swp.server.controller;
 
+import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
+import com.swp.server.dto.UpdateJobCategoryDTO;
 import com.swp.server.repository.JobApplyRepo;
 import com.swp.server.repository.JobCategoryRepo;
 import com.swp.server.repository.JobRepo;
@@ -14,35 +16,71 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/job")
 public class JobController {
 
-    @Autowired
-    private JobApplyRepo jobApplyRepo;
+	@Autowired
+	private JobApplyRepo jobApplyRepo;
 
-    @Autowired
-    private JobCategoryRepo jobCategoryRepo;
+	@Autowired
+	private JobCategoryRepo jobCategoryRepo;
 
-    @Autowired
-    private JobRepo jobRepo;
+	@Autowired
+	private JobRepo jobRepo;
 
-    @Autowired
-    private JobService jobService;
+	@Autowired
+	private JobService jobService;
 
-    @GetMapping("/viewJob")
-    public ResponseEntity<?> viewJob(){
-        return jobService.viewJob();
-    }
+	@GetMapping("/viewJob")
+	public ResponseEntity<?> viewJob() {
+		return jobService.viewJob();
+	}
 
-    @PostMapping("/createJob")
-    public ResponseEntity<?> createJob(@RequestBody JobDTO jobDTO){
-        return jobService.createJob(jobDTO);
-    }
+	@GetMapping("/viewJobCategory")
+	public ResponseEntity<?> viewJobCategory() {
+		return jobService.viewJobCategory();
+	}
 
-    @GetMapping("/edit/{jobId}")
-    public ResponseEntity<?> viewJobInfor(@PathVariable int jobId, JobDTO jobDTO){
-        return jobService.getJobInforById(jobId,jobDTO);
-    }
+	@GetMapping("/viewBranch")
+	public ResponseEntity<?> viewbranch() {
+		return jobService.getAllBranch();
+	}
 
-    @PutMapping("/edit/{jobId}")
-    public ResponseEntity<?> updateJob(@PathVariable int jobId, @RequestBody JobDTO jobDTO){
-        return jobService.updateJob(jobId,jobDTO);
-    }
+	@PostMapping("/createJob")
+	public ResponseEntity<?> createJob(@RequestBody JobDTO jobDTO) {
+		return jobService.createJob(jobDTO);
+	}
+
+	@DeleteMapping("/deleteJob/{jobId}")
+	public ResponseEntity<?> deleteJob(@PathVariable int jobId) {
+		return jobService.deleteJob(jobId);
+	}
+
+	@GetMapping("/view/{jobId}")
+	public ResponseEntity<?> viewJobInfor(@PathVariable int jobId) {
+		return jobService.getJobInforById(jobId);
+	}
+
+	@PutMapping("/edit/{jobId}")
+	public ResponseEntity<?> updateJob(@PathVariable int jobId, @RequestBody JobDTO jobDTO) {
+		return jobService.updateJob(jobId, jobDTO);
+	}
+
+	@GetMapping("/branch/getAll")
+	public ResponseEntity<?> getAllBranch() {
+		return jobService.getAllBranch();
+	}
+
+	@PostMapping("/job_category")
+	public ResponseEntity<?> createJobCategory(@ModelAttribute JobCategoryDTO jobDTO) {
+		return jobService.createJobCategory(jobDTO);
+	}
+
+	@PostMapping("/update/job_category")
+	public ResponseEntity<?> updateJob(@ModelAttribute UpdateJobCategoryDTO jobDTO) {
+		return jobService.updateJobCategory(jobDTO);
+	}
+
+	@DeleteMapping("/delete/job_category/{jobId}")
+	public ResponseEntity<?> deleteJobCategory(@PathVariable int jobId) {
+		return jobService.deleteJobCategory(jobId);
+	}
+
 }

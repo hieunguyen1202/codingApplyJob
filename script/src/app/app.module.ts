@@ -33,6 +33,7 @@ import { BadgeModule } from 'primeng/badge';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
 //module prime
+import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { DetailComponent } from './components/public/detail/detail.component';
 import { BranchDetailComponent } from './components/public/branch-detail/branch-detail.component';
@@ -47,6 +48,7 @@ import { ManageJobComponent } from './components/admin/manage-job/manage-job.com
 import { PedingApproveJobComponent } from './components/admin/peding-approve-job/peding-approve-job.component';
 import { RefuseApproveJobComponent } from './components/admin/refuse-approve-job/refuse-approve-job.component';
 import { ApproveJobComponent } from './components/admin/approve-job/approve-job.component';
+import { JobCategoryComponent } from './components/admin/job-category/job-category.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -66,6 +68,7 @@ registerLocaleData(en);
     PedingApproveJobComponent,
     RefuseApproveJobComponent,
     ApproveJobComponent,
+    JobCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +88,7 @@ registerLocaleData(en);
     FileUploadModule,
     NzPopoverModule,
     MegaMenuModule,
+    TableModule,
     BadgeModule,
     NzModalModule,
     StoreModule.forRoot({ storeUser: storeUserReducer }),
