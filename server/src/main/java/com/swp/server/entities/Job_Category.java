@@ -9,78 +9,91 @@ import java.util.List;
 @Table(name = "Job_Category")
 public class Job_Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
-    private int Id;
-    @OneToMany(mappedBy = "job_category", cascade = CascadeType.ALL)
-    private List<Job> jobs;
-    @Column(name = "Name")
-    private String Name;
-    @Column(name = "Image")
-    private String Image;
-    @Column(name = "Created_At")
-    private Date Created_At;
-    @Column(name = "Updated_At")
-    private Date Updated_At;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id")
+	private int Id;
+	@OneToMany(mappedBy = "job_category", cascade = CascadeType.ALL)
+	private List<Job> jobs;
+	@Column(name = "Name")
+	private String Name;
+	@Lob
+	private byte[] Image;
+	@Column(name = "isDeleted")
+	private boolean isDeleted;
+	@Column(name = "Created_At")
+	private Date Created_At;
+	@Column(name = "Updated_At")
+	private Date Updated_At;
 
-    public Job_Category() {
-    }
+	public Job_Category() {
+	}
 
-    public Job_Category(int id, List<Job> jobs, String name, String image, Date created_At, Date updated_At) {
-        Id = id;
-        this.jobs = jobs;
-        Name = name;
-        Image = image;
-        Created_At = created_At;
-        Updated_At = updated_At;
-    }
+	public Job_Category(int id, List<Job> jobs, String name, byte[] image, boolean isDeleted, Date created_At,
+			Date updated_At) {
+		super();
+		Id = id;
+		this.jobs = jobs;
+		Name = name;
+		Image = image;
+		this.isDeleted = isDeleted;
+		Created_At = created_At;
+		Updated_At = updated_At;
+	}
 
-    public int getId() {
-        return Id;
-    }
+	public boolean isDeleted() {
+		return isDeleted;
+	}
 
-    public void setId(int id) {
-        Id = id;
-    }
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
-    public List<Job> getJobs() {
-        return jobs;
-    }
+	public byte[] getImage() {
+		return Image;
+	}
 
-    public void setJobs(List<Job> jobs) {
-        this.jobs = jobs;
-    }
+	public void setImage(byte[] image) {
+		Image = image;
+	}
 
-    public String getName() {
-        return Name;
-    }
+	public int getId() {
+		return Id;
+	}
 
-    public void setName(String name) {
-        Name = name;
-    }
+	public void setId(int id) {
+		Id = id;
+	}
 
-    public String getImage() {
-        return Image;
-    }
+	public List<Job> getJobs() {
+		return jobs;
+	}
 
-    public void setImage(String image) {
-        Image = image;
-    }
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
 
-    public Date getCreated_At() {
-        return Created_At;
-    }
+	public String getName() {
+		return Name;
+	}
 
-    public void setCreated_At(Date created_At) {
-        Created_At = created_At;
-    }
+	public void setName(String name) {
+		Name = name;
+	}
 
-    public Date getUpdated_At() {
-        return Updated_At;
-    }
+	public Date getCreated_At() {
+		return Created_At;
+	}
 
-    public void setUpdated_At(Date updated_At) {
-        Updated_At = updated_At;
-    }
+	public void setCreated_At(Date created_At) {
+		Created_At = created_At;
+	}
+
+	public Date getUpdated_At() {
+		return Updated_At;
+	}
+
+	public void setUpdated_At(Date updated_At) {
+		Updated_At = updated_At;
+	}
 }
