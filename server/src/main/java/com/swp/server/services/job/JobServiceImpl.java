@@ -4,6 +4,7 @@ import com.swp.server.dto.BranchDTO;
 import com.swp.server.dto.JobCateDTO;
 import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
+import com.swp.server.dto.SearchJobDtp;
 import com.swp.server.dto.UpdateJobCategoryDTO;
 import com.swp.server.entities.Branch;
 import com.swp.server.entities.Job;
@@ -12,6 +13,10 @@ import com.swp.server.repository.BranchRepo;
 import com.swp.server.repository.JobApplyRepo;
 import com.swp.server.repository.JobCategoryRepo;
 import com.swp.server.repository.JobRepo;
+
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +28,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Service
+@Slf4j
 public class JobServiceImpl implements JobService {
 	@Autowired
 	private JobApplyRepo jobApplyRepo;
@@ -35,6 +41,32 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobRepo jobRepo;
+
+	@Override
+	public ResponseEntity<?> searchJob(SearchJobDtp searchJobDtp) {
+		// Extract search criteria from SearchJobDtp
+		System.err.print(searchJobDtp.toString());
+		String text = searchJobDtp.getText();
+		int category = searchJobDtp.getCategory();
+		int branch = searchJobDtp.getBranch();
+		String careerLevel = searchJobDtp.getCareer_level();
+		int experience = searchJobDtp.getExperience();
+		String salary = searchJobDtp.getSalary();
+		String qualification = searchJobDtp.getQualification();
+
+		// Call the repository method with search criteria
+		List<Job> jobList = jobRepo.findByCriteria(text, category, branch, careerLevel, experience, salary,
+				qualification);
+
+		// Check if the job list is empty
+		if (jobList.isEmpty()) {
+			// If the list is empty, return a ResponseEntity with an error message
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No jobs found matching the search criteria.");
+		} else {
+			// If the list is not empty, return a ResponseEntity with the job list
+			return ResponseEntity.ok(jobList);
+		}
+	}
 
 	@Override
 	public ResponseEntity<?> createJobCategory(JobCategoryDTO jobDTO) {
