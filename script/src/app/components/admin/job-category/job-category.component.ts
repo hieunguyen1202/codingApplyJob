@@ -129,7 +129,11 @@ export class JobCategoryComponent implements OnInit {
         },
         (error) => {
           this.isAddSpinning = false;
-          this.msg.error('Error occured !!!');
+          if (error?.error?.error) {
+            this.msg.error(error?.error?.error, { nzDuration: 2000 });
+          } else {
+            this.msg.error('Add job failed', { nzDuration: 2000 });
+          }
         }
       );
     }

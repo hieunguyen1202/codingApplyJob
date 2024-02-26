@@ -4,6 +4,7 @@ public class BranchDTO {
 	private int id;
 	private String name;
 	private String address;
+	private String img;
 
 	public BranchDTO() {
 
@@ -14,6 +15,14 @@ public class BranchDTO {
 		this.id = id;
 		this.name = name;
 		this.address = address;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public int getId() {

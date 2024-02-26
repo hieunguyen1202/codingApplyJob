@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 const BASIC_URL = ['http://localhost:8081/'];
 
@@ -10,19 +11,23 @@ export class JobCategoryService {
 
   constructor(private http: HttpClient) {}
 
-  addJobCategory(data : any){
+  getAllBranch(): Observable<any>{
+    return this.http.get(BASIC_URL + 'api/job/viewBranch');
+  }
+
+  addJobCategory(data : any): Observable<any>{
     return this.http.post(BASIC_URL + 'api/job/job_category', data);
   }
 
-  updateJobCategory(data : any){
+  updateJobCategory(data : any): Observable<any>{
     return this.http.post(BASIC_URL + 'api/job/update/job_category', data);
   }
 
-  viewJobCategory(){
+  viewJobCategory(): Observable<any>{
     return this.http.get(BASIC_URL + 'api/job/viewJobCategory');
   }
 
-  deleteJobCategoryById(id : number){
+  deleteJobCategoryById(id : number): Observable<any>{
     return this.http.delete(BASIC_URL + 'api/job/delete/job_category/'+id);
   }
 

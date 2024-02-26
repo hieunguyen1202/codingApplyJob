@@ -3,7 +3,9 @@ package com.swp.server.services.job;
 import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
 import com.swp.server.dto.UpdateJobCategoryDTO;
+import com.swp.server.dto.UpdateJobDTO;
 
+import org.hibernate.sql.Update;
 import org.springframework.http.ResponseEntity;
 
 public interface JobService {
@@ -11,7 +13,7 @@ public interface JobService {
 
 	public ResponseEntity<?> viewJob();
 
-	public ResponseEntity<?> updateJob(int Id, JobDTO jobDTO);
+	public ResponseEntity<?> updateJob(JobDTO jobDTO);
 
 	public ResponseEntity<?> getJobInforById(int Id);
 
