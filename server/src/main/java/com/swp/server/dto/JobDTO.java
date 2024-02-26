@@ -3,9 +3,12 @@ package com.swp.server.dto;
 import java.sql.Date;
 
 public class JobDTO {
+	private int id;
 	private int Category_Id;
+	private String categoryName;
+	private String name;
 	private String Career_Level;
-	private Integer Experience;
+	private int Experience;
 	private String Offer_Salary;
 	private String Qualification;
 	private String Job_Type;
@@ -13,31 +16,11 @@ public class JobDTO {
 	private String Description;
 	private Date Apply_Before;
 	private String Address;
+	private String status;
+	private Date create_At;
+	private Date update_At;
 
 	public JobDTO() {
-	}
-
-	public JobDTO(int category_Id, String career_Level, Integer experience, String offer_Salary, String qualification,
-			String job_Type, int branch_Id, String description, Date apply_Before, String address) {
-		super();
-		Category_Id = category_Id;
-		Career_Level = career_Level;
-		Experience = experience;
-		Offer_Salary = offer_Salary;
-		Qualification = qualification;
-		Job_Type = job_Type;
-		Branch_Id = branch_Id;
-		Description = description;
-		Apply_Before = apply_Before;
-		Address = address;
-	}
-
-	public int getBranch_Id() {
-		return Branch_Id;
-	}
-
-	public void setBranch_Id(int branch_Id) {
-		Branch_Id = branch_Id;
 	}
 
 	public int getCategory_Id() {
@@ -48,6 +31,22 @@ public class JobDTO {
 		Category_Id = category_Id;
 	}
 
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getCareer_Level() {
 		return Career_Level;
 	}
@@ -56,11 +55,11 @@ public class JobDTO {
 		Career_Level = career_Level;
 	}
 
-	public Integer getExperience() {
+	public int getExperience() {
 		return Experience;
 	}
 
-	public void setExperience(Integer experience) {
+	public void setExperience(int experience) {
 		Experience = experience;
 	}
 
@@ -88,6 +87,14 @@ public class JobDTO {
 		Job_Type = job_Type;
 	}
 
+	public int getBranch_Id() {
+		return Branch_Id;
+	}
+
+	public void setBranch_Id(int branch_Id) {
+		Branch_Id = branch_Id;
+	}
+
 	public String getDescription() {
 		return Description;
 	}
@@ -111,4 +118,68 @@ public class JobDTO {
 	public void setAddress(String address) {
 		Address = address;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public JobDTO(int id, int category_Id, String categoryName, String name, String career_Level, int experience,
+			String offer_Salary, String qualification, String job_Type, int branch_Id, String description,
+			Date apply_Before, String address, String status, Date create_At, Date update_At) {
+		super();
+		this.id = id;
+		Category_Id = category_Id;
+		this.categoryName = categoryName;
+		this.name = name;
+		Career_Level = career_Level;
+		Experience = experience;
+		Offer_Salary = offer_Salary;
+		Qualification = qualification;
+		Job_Type = job_Type;
+		Branch_Id = branch_Id;
+		Description = description;
+		Apply_Before = apply_Before;
+		Address = address;
+		this.status = status;
+		this.create_At = create_At;
+		this.update_At = update_At;
+	}
+
+	public Date getCreate_At() {
+		return create_At;
+	}
+
+	public void setCreate_At(Date create_At) {
+		this.create_At = create_At;
+	}
+
+	public Date getUpdate_At() {
+		return update_At;
+	}
+
+	public void setUpdate_At(Date update_At) {
+		this.update_At = update_At;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "JobDTO [id=" + id + ", Category_Id=" + Category_Id + ", categoryName=" + categoryName + ", name=" + name
+				+ ", Career_Level=" + Career_Level + ", Experience=" + Experience + ", Offer_Salary=" + Offer_Salary
+				+ ", Qualification=" + Qualification + ", Job_Type=" + Job_Type + ", Branch_Id=" + Branch_Id
+				+ ", Description=" + Description + ", Apply_Before=" + Apply_Before + ", Address=" + Address
+				+ ", status=" + status + ", create_At=" + create_At + ", update_At=" + update_At + "]";
+	}
+
 }

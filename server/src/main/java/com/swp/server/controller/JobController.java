@@ -3,6 +3,7 @@ package com.swp.server.controller;
 import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
 import com.swp.server.dto.UpdateJobCategoryDTO;
+import com.swp.server.dto.UpdateJobDTO;
 import com.swp.server.repository.JobApplyRepo;
 import com.swp.server.repository.JobCategoryRepo;
 import com.swp.server.repository.JobRepo;
@@ -44,7 +45,7 @@ public class JobController {
 	}
 
 	@PostMapping("/createJob")
-	public ResponseEntity<?> createJob(@RequestBody JobDTO jobDTO) {
+	public ResponseEntity<?> createJob(@ModelAttribute JobDTO jobDTO) {
 		return jobService.createJob(jobDTO);
 	}
 
@@ -58,9 +59,9 @@ public class JobController {
 		return jobService.getJobInforById(jobId);
 	}
 
-	@PutMapping("/edit/{jobId}")
-	public ResponseEntity<?> updateJob(@PathVariable int jobId, @RequestBody JobDTO jobDTO) {
-		return jobService.updateJob(jobId, jobDTO);
+	@PutMapping("/edit")
+	public ResponseEntity<?> updateJob(@ModelAttribute JobDTO jobDTO) {
+		return jobService.updateJob(jobDTO);
 	}
 
 	@GetMapping("/branch/getAll")

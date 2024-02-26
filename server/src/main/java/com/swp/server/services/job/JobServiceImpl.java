@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -66,7 +68,7 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public ResponseEntity<?> getAllBranch() {
 		List<BranchDTO> branchDTO = new ArrayList<>();
-		BranchDTO branchDTOElement = new BranchDTO();
+
 		List<Branch> jobOptional = branchRepo.findAll().stream().toList();
 		if (jobOptional.isEmpty()) {
 			Map<String, Object> error = new HashMap<>();
@@ -74,10 +76,11 @@ public class JobServiceImpl implements JobService {
 			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 		}
 		for (Branch job : jobOptional) {
-
+			BranchDTO branchDTOElement = new BranchDTO();
 			branchDTOElement.setId(job.getId());
 			branchDTOElement.setName(job.getName());
 			branchDTOElement.setAddress(job.getAddress());
+			branchDTOElement.setImg(job.getImg());
 			branchDTO.add(branchDTOElement);
 
 		}
@@ -131,8 +134,8 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public ResponseEntity<?> deleteJobCategory(int jobId) {
-		try { 
-			System.out.print("id"+jobId);
+		try {
+			System.out.print("id" + jobId);
 			Optional<Job_Category> job_Category = jobCategoryRepo.findById(jobId);
 			if (job_Category.isPresent()) {
 				job_Category.get().setDeleted(true);
@@ -155,6 +158,7 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public ResponseEntity<?> createJob(JobDTO jobDTO) {
+		System.out.print(jobDTO.toString());
 		try {
 			Job job = new Job();
 			Optional<Branch> optionalBranch = branchRepo.findById(jobDTO.getBranch_Id());
@@ -205,6 +209,7 @@ public class JobServiceImpl implements JobService {
 				error.put("error", "Wrong input");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
+			job.setName(jobDTO.getName());
 			job.setJob_Type(jobDTO.getJob_Type());
 			job.setDescription(jobDTO.getDescription());
 			job.setApply_Before(jobDTO.getApply_Before());
@@ -236,7 +241,9 @@ public class JobServiceImpl implements JobService {
 		}
 		for (Job job : jobOptional) {
 			if (job.isDeleted() == false) {
-				jobDTO.setCategory_Id(job.getJob_category().getId());
+				jobDTO.setId(job.getId());
+				jobDTO.setName(job.getName());
+				jobDTO.setCategoryName(job.getJob_category().getName());
 				jobDTO.setCareer_Level(job.getCareer_Level());
 				jobDTO.setExperience(job.getExperience());
 				jobDTO.setOffer_Salary(job.getOffer_Salary());
@@ -245,6 +252,18 @@ public class JobServiceImpl implements JobService {
 				jobDTO.setDescription(job.getDescription());
 				jobDTO.setApply_Before(job.getApply_Before());
 				jobDTO.setAddress(job.getAddress());
+				jobDTO.setUpdate_At(job.getUpdated_At());
+				jobDTO.setCreate_At(job.getCreated_At());
+
+				LocalDate applyBeforeDate = job.getApply_Before().toLocalDate();
+
+				// Check if the job is expired or valid based on applyBefore date
+				if (LocalDate.now().isAfter(applyBeforeDate)) {
+					jobDTO.setStatus("expired");
+				} else {
+					jobDTO.setStatus("valid");
+				}
+
 				jobDTOS.add(jobDTO);
 			}
 		}
@@ -253,32 +272,32 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public ResponseEntity<?> viewJobCategory() {
-	    List<JobCateDTO> jobCateDTOList = new ArrayList<>();
-	    List<Job_Category> jobOptional = jobCategoryRepo.findAll();
-	    if (jobOptional.isEmpty()) {
-	        Map<String, Object> error = new HashMap<>();
-	        error.put("error", "Job category is empty");
-	        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-	    }
-	    for (Job_Category jobElement : jobOptional) {
-	        if (!jobElement.isDeleted()) {
-	            JobCateDTO job = new JobCateDTO(); // Create new instance inside the loop
-	            job.setId(jobElement.getId());
-	            job.setName(jobElement.getName());
-	            job.setImage(jobElement.getImage());
-	            job.setCreate_At(jobElement.getCreated_At());
-	            job.setUpdate_At(jobElement.getUpdated_At());
-	            jobCateDTOList.add(job);
-	        }
-	    }
-	    return ResponseEntity.ok(jobCateDTOList);
+		List<JobCateDTO> jobCateDTOList = new ArrayList<>();
+		List<Job_Category> jobOptional = jobCategoryRepo.findAll();
+		if (jobOptional.isEmpty()) {
+			Map<String, Object> error = new HashMap<>();
+			error.put("error", "Job category is empty");
+			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		}
+		for (Job_Category jobElement : jobOptional) {
+			if (!jobElement.isDeleted()) {
+				JobCateDTO job = new JobCateDTO(); // Create new instance inside the loop
+				job.setId(jobElement.getId());
+				job.setName(jobElement.getName());
+				job.setImage(jobElement.getImage());
+				job.setCreate_At(jobElement.getCreated_At());
+				job.setUpdate_At(jobElement.getUpdated_At());
+				jobCateDTOList.add(job);
+			}
+		}
+		return ResponseEntity.ok(jobCateDTOList);
 	}
 
 	@Override
-	public ResponseEntity<?> updateJob(int Id, JobDTO jobDTO) {
+	public ResponseEntity<?> updateJob(JobDTO jobDTO) {
 		try {
 			Job job = new Job();
-			Optional<Job> jobOptional = jobRepo.findById(Id);
+			Optional<Job> jobOptional = jobRepo.findById(jobDTO.getId());
 			if (jobOptional.isEmpty()) {
 				Map<String, Object> error = new HashMap<>();
 				error.put("error", "Job not found");
@@ -286,14 +305,19 @@ public class JobServiceImpl implements JobService {
 			} else {
 				job = jobOptional.get();
 			}
+
 			Optional<Job_Category> jobCategoryOptional = jobCategoryRepo.findById(jobDTO.getCategory_Id());
-			if (jobCategoryOptional.isEmpty()) {
+			System.out.print(jobDTO.toString());
+			if (jobCategoryOptional.isPresent()) {
+				// Job category exists and is not null
+				job.setJob_category(jobCategoryOptional.get());
+			} else {
+				// Job category not found or is null
 				Map<String, Object> error = new HashMap<>();
 				error.put("error", "Job category not found");
 				return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-			} else {
-				job.setJob_category(jobCategoryOptional.get());
 			}
+
 			Date date = new Date();
 			java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 			job.setJobApplications(null);
@@ -336,6 +360,7 @@ public class JobServiceImpl implements JobService {
 				error.put("error", "Wrong input");
 				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 			}
+			job.setName(jobDTO.getName());
 			job.setJob_Type(jobDTO.getJob_Type());
 			job.setDescription(jobDTO.getDescription());
 			job.setApply_Before(jobDTO.getApply_Before());
@@ -363,6 +388,8 @@ public class JobServiceImpl implements JobService {
 			return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 		} else {
 			job = jobOptional.get();
+			jobDTO.setName(job.getName());
+			jobDTO.setBranch_Id(job.getBranch().getId());
 			jobDTO.setCategory_Id(job.getJob_category().getId());
 			jobDTO.setCareer_Level(job.getCareer_Level());
 			jobDTO.setExperience(job.getExperience());
@@ -372,6 +399,7 @@ public class JobServiceImpl implements JobService {
 			jobDTO.setDescription(job.getDescription());
 			jobDTO.setApply_Before(job.getApply_Before());
 			jobDTO.setAddress(job.getAddress());
+			jobDTO.setJob_Type(job.getJob_Type());
 			return ResponseEntity.ok(jobDTO);
 		}
 	}

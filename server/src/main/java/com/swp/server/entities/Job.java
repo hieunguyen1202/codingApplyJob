@@ -12,9 +12,11 @@ public class Job {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private int Id;
+	private String name;
 	@ManyToOne
 	@JoinColumn(name = "Category_Id", referencedColumnName = "Id")
 	private Job_Category job_category;
+
 	@OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
 	private List<Job_Application> jobApplications;
 	@Column(name = "Career_Level")
@@ -27,8 +29,8 @@ public class Job {
 	private String Qualification;
 	@Column(name = "Job_Type")
 	private String Job_Type;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "branch_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "branch_id")
 	private Branch branch;
 	@Column(name = "Description")
 	private String Description;
@@ -46,12 +48,13 @@ public class Job {
 	public Job() {
 	}
 
-	public Job(int id, Job_Category job_category, List<Job_Application> jobApplications, String career_Level,
-			Integer experience, String offer_Salary, String qualification, String job_Type, Branch branch,
-			String description, Date apply_Before, String address, boolean isDeleted, Date created_At,
+	public Job(int id, String name, Job_Category job_category, List<Job_Application> jobApplications,
+			String career_Level, Integer experience, String offer_Salary, String qualification, String job_Type,
+			Branch branch, String description, Date apply_Before, String address, boolean isDeleted, Date created_At,
 			Date updated_At) {
 		super();
 		Id = id;
+		this.name = name;
 		this.job_category = job_category;
 		this.jobApplications = jobApplications;
 		Career_Level = career_Level;
@@ -68,28 +71,20 @@ public class Job {
 		Updated_At = updated_At;
 	}
 
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public Branch getBranch() {
-		return branch;
-	}
-
-	public void setBranch(Branch branch) {
-		this.branch = branch;
-	}
-
 	public int getId() {
 		return Id;
 	}
 
 	public void setId(int id) {
 		Id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Job_Category getJob_category() {
@@ -148,6 +143,14 @@ public class Job {
 		Job_Type = job_Type;
 	}
 
+	public Branch getBranch() {
+		return branch;
+	}
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
 	public String getDescription() {
 		return Description;
 	}
@@ -172,6 +175,14 @@ public class Job {
 		Address = address;
 	}
 
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
 	public Date getCreated_At() {
 		return Created_At;
 	}
@@ -187,4 +198,5 @@ public class Job {
 	public void setUpdated_At(Date updated_At) {
 		Updated_At = updated_At;
 	}
+
 }

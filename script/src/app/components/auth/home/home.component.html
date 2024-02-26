@@ -1,6 +1,4 @@
-<app-navbar
- 
-></app-navbar>
+<app-navbar></app-navbar>
 <div style="width: 100%">
   <div
     class="relative"
@@ -69,31 +67,28 @@
     <div class="my-5 text-center font-bold text-3xl">
       <h1>Các chi nhánh</h1>
     </div>
-    <ngx-slick-carousel class="carousel" [config]="slideConfig">
-      <ng-container *ngFor="let slide of slides">
-        <div ngxSlickItem class="slide relative">
-          <img
-            src="https://picsum.photos/200/300"
-            alt=""
-            class="w-full p-5 h-96 cursor-pointer"
-          />
-          <div
-            class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center w-full"
-          >
-            <h1>
-              <span
-                class="text-white font-bold p-2 bg-black rounded-lg cursor-pointer hover:bg-gray-800"
-                >Hà Nội</span
-              >
-            </h1>
-          </div>
+    <div *ngIf="branch" class="flex justify-center gap-5 w-full">
+      <div
+        *ngFor="let b of branch; let i = index"
+        class="relative w-1/3 h-auto"
+      >
+        <img [src]="b.img" alt="" class="w-full p-5 h-96 cursor-pointer" />
+        <div
+          class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center w-full"
+        >
+          <h1>
+            <span
+              class="text-white font-bold p-2 bg-black rounded-lg cursor-pointer hover:bg-gray-800"
+              >{{ b.name }}</span
+            >
+          </h1>
         </div>
-      </ng-container>
-    </ngx-slick-carousel>
+      </div>
+    </div>
   </div>
 
   <!-- list of jobs -->
-  <div class="bg-white mb-10 pb-2 mx-28" #listJob>
+  <div class="bg-gray-200 mb-10 pb-2 mx-28" #listJob>
     <div class="mt-5">
       <div>
         <h1 class="text-center font-bold pt-10 text-3xl pb-5">
@@ -101,132 +96,20 @@
         </h1>
       </div>
     </div>
-    <div class="mt-10 flex flex-wrap justify-center gap-5">
-      <div class="p-2 basis-1/4">
+    <div *ngIf="listCategory" class="mt-10 flex flex-wrap justify-center gap-5">
+      <div *ngFor="let c of listCategory; let i = index" class="p-2 basis-1/4">
         <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
+          class="p-2 flex gap-2 items-center justify-around py-6 bg-white cursor-pointer rounded-md"
         >
           <div>
             <img
-              class="rounded-md"
+              [src]="'data:image/png;base64,' + c.image"
               src="https://picsum.photos/200/300"
               class="w-32 h-32"
             />
           </div>
           <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
-          </div>
-        </div>
-      </div>
-      <div class="p-2 basis-1/4">
-        <div
-          class="p-2 flex gap-2 items-center justify-around py-6 bg-gray-200 cursor-pointer rounded-md"
-        >
-          <div>
-            <img
-              class="rounded-md"
-              src="https://picsum.photos/200/300"
-              class="w-32 h-32"
-            />
-          </div>
-          <div>
-            <h1 class="font-bold">Business Analysis</h1>
+            <h1 class="font-bold">{{c.name}}</h1>
           </div>
         </div>
       </div>
