@@ -2,8 +2,12 @@ package com.swp.server.services.job;
 
 import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
+import com.swp.server.dto.SearchJobDtp;
 import com.swp.server.dto.UpdateJobCategoryDTO;
 import com.swp.server.dto.UpdateJobDTO;
+import com.swp.server.entities.Job;
+
+import java.util.List;
 
 import org.hibernate.sql.Update;
 import org.springframework.http.ResponseEntity;
@@ -28,4 +32,6 @@ public interface JobService {
 	ResponseEntity<?> viewJobCategory();
 
 	public ResponseEntity<?> getAllBranch();
+
+	public ResponseEntity<?> searchJob(SearchJobDtp searchJobDtp);
 }

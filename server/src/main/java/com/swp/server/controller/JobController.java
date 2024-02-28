@@ -2,6 +2,7 @@ package com.swp.server.controller;
 
 import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
+import com.swp.server.dto.SearchJobDtp;
 import com.swp.server.dto.UpdateJobCategoryDTO;
 import com.swp.server.dto.UpdateJobDTO;
 import com.swp.server.repository.JobApplyRepo;
@@ -28,6 +29,12 @@ public class JobController {
 
 	@Autowired
 	private JobService jobService;
+	
+	
+	@PostMapping("/searchJob")
+	public ResponseEntity<?> searchJob(@RequestBody SearchJobDtp searchJobDtp) {
+		return jobService.searchJob(searchJobDtp);
+	}
 
 	@GetMapping("/viewJob")
 	public ResponseEntity<?> viewJob() {

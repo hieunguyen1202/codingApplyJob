@@ -4,6 +4,7 @@ import com.swp.server.dto.BranchDTO;
 import com.swp.server.dto.JobCateDTO;
 import com.swp.server.dto.JobCategoryDTO;
 import com.swp.server.dto.JobDTO;
+import com.swp.server.dto.SearchJobDtp;
 import com.swp.server.dto.UpdateJobCategoryDTO;
 import com.swp.server.entities.Branch;
 import com.swp.server.entities.Job;
@@ -12,6 +13,10 @@ import com.swp.server.repository.BranchRepo;
 import com.swp.server.repository.JobApplyRepo;
 import com.swp.server.repository.JobCategoryRepo;
 import com.swp.server.repository.JobRepo;
+
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +28,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Service
+@Slf4j
 public class JobServiceImpl implements JobService {
 	@Autowired
 	private JobApplyRepo jobApplyRepo;
@@ -35,6 +41,46 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobRepo jobRepo;
+
+	@Override
+	public ResponseEntity<?> searchJob(SearchJobDtp searchJobDtp) {
+		try {
+			// Extract search criteria from SearchJobDtp
+			System.err.println(searchJobDtp.toString());
+			String text = searchJobDtp.getText();
+			Integer category = searchJobDtp.getCategory();
+			Integer branch = searchJobDtp.getBranch();
+			String careerLevel = searchJobDtp.getCareer_level();
+			Integer experience = searchJobDtp.getExperience();
+			String salary = searchJobDtp.getSalary();
+			String qualification = searchJobDtp.getQualification();
+			System.err.println("Branch: " + branch);	
+			// Call the repository method with search criteria
+			List<Job> jobList = new ArrayList<Job>();
+			List<Job> abc = jobRepo.findByCriteria(text, category, branch, careerLevel, experience, salary,
+					qualification);
+			
+			// Check if the job list is empty
+			if (abc.isEmpty()) {
+				// If the list is empty, return a ResponseEntity with an error message
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No jobs found matching the search criteria.");
+			} else {
+				for (Job fJob: abc) {
+					Job job = new Job();
+					job.setAddress(fJob.getAddress());
+					job.setName(fJob.getName());
+					job.setDescription(fJob.getDescription());
+					jobList.add(job);
+				}
+				// If the list is not empty, return a ResponseEntity with the job list
+				return ResponseEntity.ok(jobList);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No jobs found matching the search criteria.");
+		}
+		
+	}
 
 	@Override
 	public ResponseEntity<?> createJobCategory(JobCategoryDTO jobDTO) {
