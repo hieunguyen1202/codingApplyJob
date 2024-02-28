@@ -33,7 +33,6 @@ public class JobController {
 	
 	@PostMapping("/searchJob")
 	public ResponseEntity<?> searchJob(@RequestBody SearchJobDtp searchJobDtp) {
-		System.err.print(searchJobDtp);
 		return jobService.searchJob(searchJobDtp);
 	}
 

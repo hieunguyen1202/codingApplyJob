@@ -44,28 +44,42 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public ResponseEntity<?> searchJob(SearchJobDtp searchJobDtp) {
-		// Extract search criteria from SearchJobDtp
-		System.err.print(searchJobDtp.toString());
-		String text = searchJobDtp.getText();
-		int category = searchJobDtp.getCategory();
-		int branch = searchJobDtp.getBranch();
-		String careerLevel = searchJobDtp.getCareer_level();
-		int experience = searchJobDtp.getExperience();
-		String salary = searchJobDtp.getSalary();
-		String qualification = searchJobDtp.getQualification();
-
-		// Call the repository method with search criteria
-		List<Job> jobList = jobRepo.findByCriteria(text, category, branch, careerLevel, experience, salary,
-				qualification);
-
-		// Check if the job list is empty
-		if (jobList.isEmpty()) {
-			// If the list is empty, return a ResponseEntity with an error message
+		try {
+			// Extract search criteria from SearchJobDtp
+			System.err.println(searchJobDtp.toString());
+			String text = searchJobDtp.getText();
+			Integer category = searchJobDtp.getCategory();
+			Integer branch = searchJobDtp.getBranch();
+			String careerLevel = searchJobDtp.getCareer_level();
+			Integer experience = searchJobDtp.getExperience();
+			String salary = searchJobDtp.getSalary();
+			String qualification = searchJobDtp.getQualification();
+			System.err.println("Branch: " + branch);	
+			// Call the repository method with search criteria
+			List<Job> jobList = new ArrayList<Job>();
+			List<Job> abc = jobRepo.findByCriteria(text, category, branch, careerLevel, experience, salary,
+					qualification);
+			
+			// Check if the job list is empty
+			if (abc.isEmpty()) {
+				// If the list is empty, return a ResponseEntity with an error message
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No jobs found matching the search criteria.");
+			} else {
+				for (Job fJob: abc) {
+					Job job = new Job();
+					job.setAddress(fJob.getAddress());
+					job.setName(fJob.getName());
+					job.setDescription(fJob.getDescription());
+					jobList.add(job);
+				}
+				// If the list is not empty, return a ResponseEntity with the job list
+				return ResponseEntity.ok(jobList);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No jobs found matching the search criteria.");
-		} else {
-			// If the list is not empty, return a ResponseEntity with the job list
-			return ResponseEntity.ok(jobList);
 		}
+		
 	}
 
 	@Override

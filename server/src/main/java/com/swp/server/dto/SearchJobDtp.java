@@ -3,14 +3,14 @@ package com.swp.server.dto;
 public class SearchJobDtp {
 
 	private String text;
-	private int category;
-	private int branch;
+	private Integer category;
+	private Integer branch;
 	private String career_level;
-	private int experience;
+	private Integer experience;
 	private String salary;
 	private String qualification;
 
-	public SearchJobDtp(String text, int category, int branch, String career_level, int experience, String salary,
+	public SearchJobDtp(String text, Integer category, Integer branch, String career_level, Integer experience, String salary,
 			String qualification) {
 		super();
 		this.text = text;
@@ -30,19 +30,19 @@ public class SearchJobDtp {
 		this.text = text;
 	}
 
-	public int getCategory() {
+	public Integer getCategory() {
 		return category;
 	}
 
-	public void setCategory(int category) {
+	public void setCategory(Integer category) {
 		this.category = category;
 	}
 
-	public int getBranch() {
+	public Integer getBranch() {
 		return branch;
 	}
 
-	public void setBranch(int branch) {
+	public void setBranch(Integer branch) {
 		this.branch = branch;
 	}
 
@@ -54,11 +54,11 @@ public class SearchJobDtp {
 		this.career_level = career_level;
 	}
 
-	public int getExperience() {
+	public Integer getExperience() {
 		return experience;
 	}
 
-	public void setExperience(int experience) {
+	public void setExperience(Integer experience) {
 		this.experience = experience;
 	}
 
